@@ -13,6 +13,7 @@ db = client.dbsparta
 @app.route('/')
 def home():
     #기본 페이지 불러오기
+   print(abc)
    return render_template('index.html')
 
 
