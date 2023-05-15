@@ -14,6 +14,11 @@
 
     <title>스파르타 피디아</title>
 
+    <!-- 이미지 추가 예정 -->
+    <meta property="og:title" content="코딩 프로필" />
+    <meta property="og:description" content="실력있는 개발자가 되고 싶은 자신의 열정을 담은 프로필" />
+    <meta property="og:image" content="이미지URL" />
+
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
     <style>
@@ -97,7 +102,7 @@
                 let rows = data['result']
                 // console.log(rows)
                 $('#cards-box').empty()
-                
+
                 rows.forEach(a => {
                     let comment = a['comment']
                     let title = a['title']
@@ -133,7 +138,7 @@
             let formData = new FormData();
             formData.append("url_give", url);
             formData.append("comment_give", comment);
-            formData.append("star_give",star)
+            formData.append("star_give", star)
 
             fetch('/movie', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {
                 alert(data['msg'])

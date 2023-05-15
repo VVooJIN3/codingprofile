@@ -12,9 +12,9 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-    #기본 페이지 불러오기
+    # 기본 페이지 불러오기
    return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5001, debug=True)
