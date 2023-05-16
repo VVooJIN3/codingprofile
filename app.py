@@ -1,3 +1,4 @@
+#pip install flask requests dnspython pymongo
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 app = Flask(__name__)
@@ -13,8 +14,7 @@ db = client.dbsparta
 @app.route('/')
 def home():
     #기본 페이지 불러오기
-   print(abc)
-   return render_template('index.html')
+   return render_template('woojin.html')
 
 
 if __name__ == '__main__':

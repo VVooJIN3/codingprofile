@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <title>코딩프로필 - 조우진</title>
+
+    <meta property="og:title" content="코딩 프로필" />
+    <meta property="og:description" content="조우진" />
+    <meta property="og:image" content="https://drive.google.com/uc?id=156cEeiEXWM2XgPSRI3lBKWe4K1Bro_0Q" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            font-family: "Gowun Dodum", sans-serif;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            // 마우스 휠 이벤트 제거
+            wheel_event()
+        });
+
+        function wheel_event() {
+            window.addEventListener("wheel", function (e) {
+                e.preventDefault();
+            }, { passive: false });
+
+
+            var $html = $("html");
+            var page = 1;
+            var lastPage = $(".section").length;
+
+            console.log("페이지수 :" + lastPage)
+            $html.animate({ scrollTop: 0 }, 10);
+
+            $(window).on("wheel", function (e) {
+
+                if ($html.is(":animated")) return;
+
+                if (e.originalEvent.deltaY > 0) {
+                    if (page == lastPage) return;
+
+                    page++;
+                } else if (e.originalEvent.deltaY < 0) {
+                    if (page == 1) return;
+
+                    page--;
+                }
+                var posTop = (page - 1) * $(window).height();
+
+                $html.animate({ scrollTop: posTop });
+
+            });
+        }
+        // $(document).ready(function () {
+        //     set_temp();
+        //     show_comment();
+        // });
+        // // function set_temp() {
+        // //     fetch("http://spartacodingclub.shop/sparta_api/weather/seoul").then((res) => res.json()).then((data) => {
+        // //         let temp = data['temp']
+
+        // //         $('#temp').text(temp)
+
+        // //     });
+        // // }
+        // function save_comment() {
+
+        //     let name = $('#name').val()
+        //     let comment = $('#comment').val()
+
+        //     let formData = new FormData();
+        //     formData.append("name_give", name);
+        //     formData.append("comment_give", comment);
+
+        //     fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+        //         //console.log(data)
+        //         alert(data["msg"]);
+        //         window.location.reload()
+        //     });
+        // }
+        // function show_comment() {
+        //     fetch('/guestbook').then((res) => res.json()).then((data) => {
+        //         //alert(data["msg"])
+        //         let rows = data['result']
+
+        //         $('#comment-list').empty()
+        //         rows.forEach(a => {
+        //             let name = a['name']
+        //             let comment = a['comment']
+        //             let temp_html = `<div class="card">
+        //                                 <div class="card-body">
+        //                                     <blockquote class="blockquote mb-0">
+        //                                         <p>${comment}</p>
+        //                                         <footer class="blockquote-footer">${name}</footer>
+        //                                     </blockquote>
+        //                                 </div>
+        //                             </div>`
+        //             $('#comment-list').append(temp_html)
+
+        //         });
+        //     })
+        // }
+    </script>
+</head>
+
+<body>
+
+
+    <div class="sidebar">
+        <!-- <a href="#s1"><img src="/static/image/license.png" alt="license" width="50px" height="50px"></a> -->
+        <!-- <a href="#s2"><img src="/static/image/reply.png" alt="graduation" width="50px" height="50px"></a>         -->
+        <!-- <a href="#s3"><img src="/static/image/airplane.png" alt="airplane" width="50px" height="50px"></a> -->
+        <a href="#s1" style="font-size:2.0em; text-decoration:none;">🏠</a>
+        <a href="#s2" style="font-size:2.0em; text-decoration:none;">💬</a>
+        <a href="#s3" style="font-size:2.0em; text-decoration:none;">✈️</a>
+        <a href="#s4" style="font-size:2.0em; text-decoration:none;">📹</a>
+
+        <!-- <a href="#s4"><img src="/static/image/graduation.png" alt="graduation" width="50px" height="50px"></a> -->
+    </div>
+
+    <section class="section" id="s1">
+        <div class="myprofile">
+            <video height="200px" class="myvideo" muted autoplay loop>
+                <source src="static/video/video.mp4" type="" video/mp4" height="200px">
+            </video>
+            <h1>나의 코딩 프로필</h1>
+        </div>
+        <div class="mycards" id="comment-list">
+            <div class="introducecard">
+                <p class="wordframe">이름 : <span class="word" id="name">조우진</span></p>
+                <p class="wordframe">MBTI :<span class="word">INFJ</span></p>
+                <p class="wordframe">취미 :<span class="word">✈️여행</span></p>
+                <p class="wordframe">장점 :<span class="word">공감해주기</span></p>
+                <p class="wordframe">블로그 주소 :<a href="https://velog.io/@dnwls3525">조우진 velog</a></p>
+                <p class="wordframe">생년월일 : <span class="word">🎂1995.03.03</span></p>
+                <p class="wordframe">전화번호 : <span class="word">📞+(82)10-5543-0461</span></p>
+                <p class="wordframe">Email :<span class="word">📧dnwls3525@gmail.com</span></p>
+                <!-- <p class="wordframe">협업 스타일 :</p> -->
+                <!-- <p class="wordframe">우리 팀의 약속 :</p> -->
+            </div>
+            <div class="imagecard">
+                <img src="/static/image/introduce.jpg" width="333px" height="444px">
+            </div>
+            <div class="title-comment">
+                <p>안녕하세요? 저는 <b>조우진</B>입니다.✨</p>
+                <p>2023년, 저는 <b>29살</b> 이에요!</p>
+                <p>저는 <b>컴퓨터공학</b>💻을 전공했고</p>
+                <p><b>2년 간</b> 식품회사 <b>하림</b>🐔에서 <b>IT직무</b>로 근무했으며</p>
+                <p><b>지금!</b> 저의 발전을 위해 <b>내일배움캠프</b>에서 다시 공부를 시작했습니다!</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="section" id="s2">
+        <h1>section 2</h1>
+        <a href="#">top</a>
+        <img src="/static/image/title.svg" alt="title">
+
+        <div class="card" id="reply-list">
+
+            <ul class="list-group list-group-flush">
+                <div class="row">
+                    <div class="col">
+                        <label for="list-group-item" class="commentId" id="editnickname-1">유저1</label>
+                    </div>
+                    <div class="col-2" style="margin-right: 30px; ">
+                        <input type="text" class="form-control" id="editPw-1" value="" placeholder="PW">
+                    </div>
+                </div>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-10">
+                            <input type="text" class="form-control-plaintext" id="editreply-1" disabled
+                                value="1번 방명록 내용 입니다.">
+                        </div>
+                        <div class="col-2">
+                            <!-- 내용변경 -->
+                            <div class="button-group">
+                                <button id="edit-button-1" class="edit-button-static">✏️</button>
+                                <button id="done-button-1" style="display: none;" class="done-button-static">완료</button>
+                                <button id="delete-button-1" class="delete-button-static">❌</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="list-group list-group-flush">
+                <div class="row">
+                    <div class="col">
+                        <label for="list-group-item" class="commentId" id="editnickname-2">유저2</label>
+                    </div>
+                    <div class="col-2" style="margin-right: 30px;">
+                        <input type="text" class="form-control" id="editPw-2" value="" placeholder="PW">
+                    </div>
+                </div>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-10">
+                            <input type="text" class="form-control-plaintext" id="editreply-2" disabled
+                                value="2번 방명록 내용입니다.">
+                        </div>
+                        <div class="col-2">
+                            <!-- 내용변경 -->
+                            <div class="button-group">
+                                <button id="edit-button-2" class="edit-button-static">✏️</button>
+                                <button id="done-button-2" style="display: none;" class="done-button-static">완료</button>
+                                <button id="delete-button-2" class="delete-button-static">❌</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <div class="guestbook">
+            <div class="guestbook-header">
+                방명록 작성하기
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-2">
+                        <input class="form-control" id="nickname" placeholder="ID">
+                    </div>
+                    <div class="col-2">
+                        <input class="form-control" type="password" id="password" placeholder="PW">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10">
+                        <div class="mb-3">
+                            <textarea class="form-control" id="reply"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button onclick="save_reply()" type="button" id="writeButton">등록</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+    <section class="section" id="s3">
+        <div class="imagecard">
+            <img src="/static/image/tripimage1.jpg" width="444px" height="444px">
+        </div>
+        <div class="imagecard">
+            <img src="/static/image/tripimage3.jpg" width="888px" height="444px">
+        </div>
+        <div class="imagecard">
+            <img src="/static/image/tripimage2.jpg" width="333px" height="444px">
+        </div>
+    </section>
+    <section class="section" id="s4">
+        <div class="video-wrapper">
+            <video width="313px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo1.mp4" type="" video/mp4">
+            </video>
+            <video width="400px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo3.mp4" type="" video/mp4>
+            </video>
+            <video width="400px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo2.mp4" type="" video/mp4>
+            </video>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

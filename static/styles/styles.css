@@ -1,0 +1,193 @@
+/*스크롤 바 없애기*/
+html {
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    /* html과 body 요소 높이 설정 */
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    position: fixed;
+    width: 60px;
+    height: 300px;
+    top: 250px;
+    margin-left: 15px;
+    background-color: white;
+    border-style: outset;
+    z-index: 2;
+
+}
+
+.sidebar>img {
+    display: flex;
+
+    margin: 0 auto;
+}
+
+
+section {
+    width: 100%;
+    height: 100vh;
+    border-top: #000000;
+}
+
+#s1 {
+    /* background-color: #FFFFFF; */
+
+}
+
+
+#s2 {
+    background-color: #FFFFFF
+}
+
+
+#s3 {
+    display: flex;
+    flex-wrap: nowrap;
+    /* 가로로 넘치는 경우 줄바꿈하지 않음 */
+    /* overflow-x: auto; */
+    /* 가로로 넘치는 경우 스크롤바 표시 */
+    justify-content: center; /* 요소들을 가로 축에서 가운데로 정렬 */
+    align-items: center; /* 요소들을 수직 축에서 가운데로 정렬 */
+}
+
+#s3>.imagecard {
+    flex: 0 0 auto;
+    /* 요소 크기를 유지하고 간격 없이 정렬 */
+    margin-right: 10px;
+    /* 이미지 사이 간격 조절 */
+}
+
+#s4 {
+    display: flex;
+    flex-wrap: nowrap;
+    /* 가로로 넘치는 경우 줄바꿈하지 않음 */
+    /* overflow-x: auto; */
+    /* 가로로 넘치는 경우 스크롤바 표시 */
+    justify-content: center; /* 요소들을 가로 축에서 가운데로 정렬 */
+    align-items: center; /* 요소들을 수직 축에서 가운데로 정렬 */
+}
+
+#s4>.video-wrapper{
+    display:flex;
+    gap:100px;
+}
+#s4>.videocard {
+     margin:0; 
+
+    /* margin-right: 10px; */
+    /* 이미지 사이 간격 조절 */
+}
+
+#s2>img {
+    width: 400px;
+    margin-left: 10%;
+    position: absolute;
+}
+
+.item {
+    width: 100%;
+    height: 500px;
+}
+
+.myprofile {
+    width: 100%;
+    height: 200px;
+    background-position: center 50%;
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+}
+
+.myprofile>h1 {
+    z-index: 1;
+}
+
+.myvideo {
+    position: absolute;
+    z-index: 0;
+}
+
+.mypost {
+    width: 95%;
+    max-width: 500px;
+    margin: 20px auto 20px auto;
+
+    box-shadow: 0px 0px 3px 0px black;
+    padding: 20px;
+}
+
+.mypost>button {
+    margin-top: 15px;
+}
+
+.mycards {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.mycards>.imagecard {
+
+    width: 333px;
+    height: 444px;
+    margin-left: 5%;
+    margin-top: 20px;
+    box-shadow: 0px 0px 5px 0px black;
+}
+
+.mycards>.introducecard {
+    margin-left: 15%;
+    margin-top: 80px;
+    font-size: 1.20em;
+}
+
+.title-comment {
+    margin-left: 5%;
+    margin-top: 120px;
+    font-size: 1.20em;
+}
+
+.wordframe {
+    color: indianred;
+    size: 200px;
+    margin-left: 170px;
+}
+
+.word {
+    color: black;
+}
+
+
+
+body {
+    background-color: #EFE7E4;
+}
+
+.guestbook {
+    margin-top: 550px;
+    margin-left: 80px;
+    width: 80%;
+
+    border-style: ridge;
+
+}
+
+
+#reply-list {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 50%;
+    width: 600px;
+
+}
