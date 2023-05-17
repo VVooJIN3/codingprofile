@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <title>개인 프로필</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
+
+        * {
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        #head {
+            display: grid;
+            grid-template-columns: 2fr 2fr;
+            grid-template-rows: 200px;
+        }
+
+        .host {
+            font-size: 50px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .home {
+            text-align: right;
+            margin: 5% 10%;
+        }
+
+        #grid {
+            font-size: 20px;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            grid-template-rows: 330px;
+        }
+
+        .mytxt {
+            text-align: center;
+        }
+
+        .intro {
+            color: green;
+        }
+
+        .myimg {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+        }
+
+        .navbar {
+            margin: 20px 0px 20px 0px;
+            padding: 30px 0px 30px 0px;
+        }
+
+        .img {
+            width: 360px;
+            height: 270px;
+            margin: 0px 0px 30px 15px;
+        }
+
+        .img2 {
+            width: 270px;
+            height: 270px;
+            margin: 0px 0px 30px 15px;
+        }
+
+        .text {
+            margin: 0px 50px 0px 50px;
+            font-size: 20px;
+        }
+
+        .form-control {
+            width: 200px;
+            height: 30px;
+            margin: 5px 0px 0px 10px;
+        }
+
+        .comment-control {
+            width: 400px;
+            height: 100px;
+            margin: 3px 0px 0px 10px;
+        }
+
+        .mybtn {
+            margin-bottom: 30px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            show_order();
+        });
+        function show_order() {
+            fetch('/guestbook').then((res) => res.json()).then((data) => {
+                let rows = data['result']
+                $('#order-box').empty()
+                rows.forEach((a) => {
+                    let id = a['id']
+                    let comment = a['comment']
+
+                    let temp_html = `<tr>
+                                        <td>${id}</td>
+                                        <td>${comment}</td>
+                                    </tr>`
+                    $('#order-box').append(temp_html)
+                })
+            })
+        }
+        function save_order() {
+            let name = '이경원'     // 이름수정? url입력받기?
+            let id = $('#id').val()
+            let password = $('#password').val()
+            let comment = $('#comment').val()
+
+            let formData = new FormData();
+            formData.append("name_give", name);
+            formData.append("id_give", id);
+            formData.append("password_give", password);
+            formData.append("comment_give", comment);
+
+            fetch("/guestbook", { method: "POST", body: formData }).then(res => res.json()).then(data => {
+                alert(data["msg"])
+                window.location.reload()
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <header id="head">
+        <span class="host">이경원</span>
+        <!-- 홈버튼 링크 수정 -->
+        <span class="home"><a href="메인페이지 URL"><button type="button"
+                    class="btn btn-outline-dark">Home</button></a></span>
+    </header>
+    <div id="grid">
+        <div class="mytxt">
+            <p><span class="intro">장점</span>: 내 생각과 다른 의견도 잘 수용함</p>
+            <p><span class="intro">좋아하는 것</span>: 음악듣기, 산책</p>
+            <p><span class="intro">협업 스타일</span>: 말 잘 듣기</p>
+            <p><span class="intro">목표</span>: 올해 취업하기</p>
+            <p><span class="intro">MBTI</span>: ENFP</p>
+            <p><span class="intro">우리집 고양이</span>: 도도</p>
+            <p>블로그 주소: &nbsp;<a href="https://velog.io/@canseeit/">https://velog.io/@canseeit</a></p>
+        </div>
+        <div>
+            <img src="https://drive.google.com/uc?id=13ISFnB9749e2WeLscfiAKp48ik7yDKhi" class="myimg">
+        </div>
+    </div>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">GUEST BOOK</span>
+        </div>
+    </nav>
+    <div class="guestbook">
+        <div class="user-input">
+            <input id="id" type="text" class="form-control" placeholder="ID">
+            <input id="password" type="password" class="form-control" placeholder="PASSWARD">
+        </div>
+        <textarea id="comment" class="comment-control" placeholder="COMMENT"></textarea>
+        <button onclick="save_order()" type="button" class="btn btn-primary mybtn">확인</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">comment</th>
+            </tr>
+        </thead>
+        <tbody id="order-box">
+            <tr>
+                <td>테스트</td>
+                <td>테스트</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class="navbar navbar-light bg-light"></nav>
+    <div>
+        <img src="https://drive.google.com/uc?id=1hk09k5abASeaVJTdhjniGhcfLDc64w10" class="img">
+        <img src="https://drive.google.com/uc?id=1V_kE5I1vnHNh0E7NgM7Os7Xtiee_bItv" class="img">
+        <img src="https://drive.google.com/uc?id=1n9UHoWH0MHN5zX1Wlzop604dQmQ0xni2" class="img">
+        <img src="https://drive.google.com/uc?id=1IoPvY4VbyF-49hWsh9PZh_KBEu9d07GB" class="img2">
+    </div>
+    <div class="text">
+        <p>콘서트 보러 다니는 것을 아주 좋아합니다.</p>
+        <p>코로나로 한참 못가다가 작년에 3번 다녀왔어요!</p>
+        <p>캠프 개강날 시간 가는 줄 모르고 있다가 태연 콘서트 예매 잊어버림...</p>
+        <p>아직 못갔지만 올해에도 반드시 가야지!</p>
+    </div>
+</body>
+
+</html>
