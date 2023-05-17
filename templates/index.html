@@ -9,59 +9,148 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        integrity="sha384-MrcW6ZMFYlzcLA8     Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-    <title>스파르타 피디아</title>
+    <title>폼미쳤다2조 | 코딩프로필</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
     <style>
         * {
-            font-family: 'Gowun Dodum', sans-serif;
+            font-family: 'Nanum Myeongjo', serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .mytitle {
+        .container {
             width: 100%;
-            height: 250px;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://drive.google.com/uc?id=1JHtvQPTvrnl1GzZRV2JD_aIAdVnfI7OQ");
 
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg');
             background-position: center;
             background-size: cover;
+        }
 
-            color: white;
-
+        .container .header {
+            width: 80%;
+            height: 80px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            /* 영역 좌우로 */
             align-items: center;
-            justify-content: center;
         }
 
-        .mytitle>button {
-            width: 200px;
-            height: 50px;
-
-            background-color: transparent;
+        .container .header h1 a {
+            text-decoration: none;
             color: white;
-
-            border-radius: 50px;
-            border: 1px solid white;
-
-            margin-top: 10px;
         }
 
-        .mytitle>button:hover {
-            border: 2px solid white;
+        .container .nav ul li {
+            display: inline-block;
+            /* 가로정렬 */
+            margin: 0 10px;
+            color: white;
         }
 
-        .mycomment {
-            color: gray;
+        .container .nav ul li:hover {
+            color: #1fdfdf
         }
+
+        /* .container .nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .container .nav ul li a:hover {
+            color: #1fdfdf
+        } */
+
+        .container .hero {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        .container .hero h2 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .container .hero p {
+            font-size: 22px;
+        }
+
+        .container .hero button {
+            background: none;
+            border: 2px solid darkseagreen;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 30px;
+            margin-top: 30px;
+            outline: none;
+            cursor: pointer;
+            transition: all .4s;
+        }
+
+        .container .hero button:hover {
+            background-color: darkslategray;
+        }
+
+        .view#scrollButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+        }
+
 
         .mycards {
             margin: 20px auto 0px auto;
             width: 95%;
-            max-width: 1200px;
+            /* max-width: 1200px; */
+            height: 2000px;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            /* Adjust the height as needed */
+            object-fit: cover;
+        }
+
+        .card-body {
+            height: 100%;
+        }
+
+
+
+        .memberb {
+            background: none;
+            border: 1px solid black;
+            color: black;
+            padding: 10px 30px;
+            border-radius: 20px;
+            margin-top: 10px;
+            outline: none;
+            cursor: pointer;
+            transition: all .4s;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+
+        }
+
+        .memberb:hover {
+            border: 1px solid white;
         }
 
         .mypost {
@@ -74,17 +163,21 @@
             display: none;
         }
 
-        .mybtns {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-
-            margin-top: 20px;
+        /* 탑버튼 스타일 */
+        #btn_top {
+            position: fixed;
+            right: 10px;
+            bottom: 40px;
+            z-index: 999;
+            opacity: 0.5;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .4);
         }
 
-        .mybtns>button {
-            margin-right: 10px;
+        #btn_top:hover {
+            background-color: black;
+            transition: 0.3s;
+            transform: scale(1.1);
         }
     </style>
     <script>
@@ -93,11 +186,11 @@
         });
 
         function listing() {
-            fetch('/movie').then((res) => res.json()).then((data) => {
+            fetch('/team_main').then((res) => res.json()).then((data) => {
                 let rows = data['result']
                 // console.log(rows)
                 $('#cards-box').empty()
-                
+
                 rows.forEach(a => {
                     let comment = a['comment']
                     let title = a['title']
@@ -133,7 +226,7 @@
             let formData = new FormData();
             formData.append("url_give", url);
             formData.append("comment_give", comment);
-            formData.append("star_give",star)
+            formData.append("star_give", star)
 
             fetch('/movie', { method: "POST", body: formData }).then((res) => res.json()).then((data) => {
                 alert(data['msg'])
@@ -151,87 +244,99 @@
 </head>
 
 <body>
-    <div class="mytitle">
-        <h1>내 생애 최고의 영화들</h1>
-        <button onclick="open_box()">영화 기록하기</button>
-    </div>
-    <div class="mypost" id="post-box">
-        <div class="form-floating mb-3">
-            <input id="url" type="email" class="form-control" placeholder="name@example.com">
-            <label>영화URL</label>
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">별점</label>
-                <select class="form-select" id="star">
-                    <option selected>-- 선택하기 --</option>
-                    <option value="1">⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
-                </select>
+    <div class="container">
+        <div class="header">
+            <h1><a href="#">폼미쳤다2조</a></h1>
+            <div class="nav">
+                <ul>
+                    <li>신혜</li>
+                    <li>우진</li>
+                    <li>행복</li>
+                    <li>경원</li>
+                    <li>수빈</li>
+                </ul>
             </div>
         </div>
-        <div class="form-floating">
-            <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
-            <label for="floatingTextarea2">코멘트</label>
-        </div>
-        <div class="mybtns">
-            <button onclick="posting()" type="button" class="btn btn-dark">기록하기</button>
-            <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+        <div class="hero">
+            <h2>코딩 PROFILE</h2>
+            <p>컴퓨터 프로그램으로 구현하는 ‘코딩’과 사진을 뜻하는 ‘Profile’의 합성어로,<br> 실력있는 개발자가 되고 싶은 자신의 열정을 담은 프로필</p>
+            <button id="scrollButton" class="scrollButton">더보기</button>
         </div>
     </div>
+
+
     <div class="mycards">
-        <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
+        <div class="row row-cols-1 row-cols-md-5 g-5" id="cards-box">
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 영화에 대한 설명이 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">나의 한줄 평을 씁니다</p>
+                    <img src="https://drive.google.com/uc?id=1hhA9Sz4K2zfvib8ExF_esCa_yIFANF-s" class="card-img-top">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                        <button class="memberb">최신혜 > </button>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 영화에 대한 설명이 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">나의 한줄 평을 씁니다</p>
+                    <img src="https://drive.google.com/uc?id=1pnOSUh7HyXBruu9Y_WiDOa8kAxVCiIIk" class="card-img-top">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                        <button class="memberb">조우진 > </button>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 영화에 대한 설명이 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">나의 한줄 평을 씁니다</p>
+                    <img src="https://drive.google.com/uc?id=1IyAcV43m3mhT3wvKpkwoWmGXyOgsFbir" class="card-img-top">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                        <button class="memberb">박행복 > </button>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
-                        class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">영화 제목이 들어갑니다</h5>
-                        <p class="card-text">여기에 영화에 대한 설명이 들어갑니다.</p>
-                        <p>⭐⭐⭐</p>
-                        <p class="mycomment">나의 한줄 평을 씁니다</p>
+                    <img src="https://drive.google.com/uc?id=1JqQDak4NLdEKDSVAPUS7xAUhNjFpunpx" class="card-img-top">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                        <button class="memberb">이경원 > </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://drive.google.com/uc?id=1HVNodYV9lDow6omdODv-6D57l1w3-5Ai" class="card-img-top">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                        <button class="memberb">박수빈 > </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("scrollButton").addEventListener("click", function () {
+                window.scrollBy({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <!-- 탑버튼 시작 -->
+
+    <!-- // 화면에 버튼 생성 -->
+    <div id="btn_top" title="위로"><img src='https://drive.google.com/uc?id=1yhFceMIOE2E-6XIq2gk50n5AMkQd4FtC'
+            alt='top' /></div>
+
+    <!-- // 버튼 클릭 시 효과 설정 -->
+    <script>
+        $("#btn_top").click(function () {  // 버튼 클릭 시
+            $('html,body').scrollTop(0);  // 스크롤탑이 '0'이 된다는 - 스크롤이 제일 위로 올라간다는 의미
+        });
+    </script>
+
+    <!-- 탑버튼 끝 -->
+
+
+
 </body>
 
 </html>
