@@ -36,16 +36,11 @@ section {
     border-top: #000000;
 }
 
-#s1 {
-    /* background-color: #FFFFFF; */
-
-}
 
 
 #s2 {
     background-color: #FFFFFF
 }
-
 
 #s3 {
     display: flex;
@@ -53,8 +48,10 @@ section {
     /* 가로로 넘치는 경우 줄바꿈하지 않음 */
     /* overflow-x: auto; */
     /* 가로로 넘치는 경우 스크롤바 표시 */
-    justify-content: center; /* 요소들을 가로 축에서 가운데로 정렬 */
-    align-items: center; /* 요소들을 수직 축에서 가운데로 정렬 */
+    justify-content: center;
+    /* 요소들을 가로 축에서 가운데로 정렬 */
+    align-items: center;
+    /* 요소들을 수직 축에서 가운데로 정렬 */
 }
 
 #s3>.imagecard {
@@ -70,16 +67,19 @@ section {
     /* 가로로 넘치는 경우 줄바꿈하지 않음 */
     /* overflow-x: auto; */
     /* 가로로 넘치는 경우 스크롤바 표시 */
-    justify-content: center; /* 요소들을 가로 축에서 가운데로 정렬 */
-    align-items: center; /* 요소들을 수직 축에서 가운데로 정렬 */
+    justify-content: center;
+    /* 요소들을 가로 축에서 가운데로 정렬 */
+    align-items: center;
+    /* 요소들을 수직 축에서 가운데로 정렬 */
 }
 
-#s4>.video-wrapper{
-    display:flex;
-    gap:100px;
+#s4>.video-wrapper {
+    display: flex;
+    gap: 100px;
 }
+
 #s4>.videocard {
-     margin:0; 
+    margin: 0;
 
     /* margin-right: 10px; */
     /* 이미지 사이 간격 조절 */
@@ -101,15 +101,15 @@ section {
     height: 200px;
     background-position: center 50%;
     background-size: cover;
-    color: white;
+    color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #000000;
 }
 
 .myprofile>h1 {
+    color:#000000;
     z-index: 1;
 }
 
@@ -175,7 +175,7 @@ body {
 }
 
 .guestbook {
-    margin-top: 550px;
+    margin-top: 50px;
     margin-left: 80px;
     width: 80%;
 
@@ -184,10 +184,13 @@ body {
 }
 
 
-#reply-list {
-    position: absolute;
+#comment-list {
     margin-top: 50px;
     margin-left: 50%;
     width: 600px;
 
+}
+
+#pagination {
+margin-left:50%;
 }

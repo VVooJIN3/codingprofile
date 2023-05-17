@@ -31,9 +31,13 @@
     </style>
 
     <script>
+        var page = 1; //페이지 전역변수 선언 (스크롤 페이지와 사이드바 페이지 통일 위함)
         $(document).ready(function () {
+
+
             // 마우스 휠 이벤트 제거
             wheel_event()
+            guestbook_show()
         });
 
         function wheel_event() {
@@ -41,9 +45,8 @@
                 e.preventDefault();
             }, { passive: false });
 
-
             var $html = $("html");
-            var page = 1;
+
             var lastPage = $(".section").length;
 
             console.log("페이지수 :" + lastPage)
@@ -66,57 +69,133 @@
 
                 $html.animate({ scrollTop: posTop });
 
+            })
+        }
+
+        function assignPageValue(pagenum) {
+            page = pagenum;
+            // 이후 val 변수를 사용하여 원하는 작업 수행
+
+        }
+        function guestbook_show() {
+            let name = $('#name').text();
+            console.log(name);
+            fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
+                let rows = data['result']
+                commentIdx = 1;
+                $('#comment-list').empty()
+                rows.forEach(a => {
+                    let id = a['id'];
+                    let comment = a['comment'];
+                    let password = a['password'];
+                    let edittime = a['timestamp'];
+                    let objectId = a['_id']
+                    let temp_html = `
+                    <ul class="list-group list-group-flush">
+                        <div class="row">
+                            <div class="col">
+                                <label for="list-group-item" class="commentId" id="editid-${commentIdx}">${id}</label>
+                            </div>
+                            <div class="col">
+                                 <p id="edittime-${commentIdx}">${edittime}</p>
+                            </div>
+                            <div class="col">
+                                 <input type="text" class="form-control" id="editpassword-${commentIdx}" value="" placeholder="PW">
+                            </div>
+                        </div>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input type="text" class="form-control-plaintext" id="editcomment-${commentIdx}" disabled
+                                        value="${comment}">
+                                </div>
+                                <div class="col-2">
+                                    <!-- 내용변경 -->
+                                    <div class="button-group">
+                                        <button id="edit-button-${commentIdx}" class="edit-button-${commentIdx}" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">✏️</button>
+                                        <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
+                                        <button id="delete-button-${commentIdx}" class="delete-button-${commentIdx}" onclick="deletebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">❌</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>`
+                    $('#comment-list').append(temp_html)
+                    commentIdx++;
+                });
             });
         }
-        // $(document).ready(function () {
-        //     set_temp();
-        //     show_comment();
-        // });
-        // // function set_temp() {
-        // //     fetch("http://spartacodingclub.shop/sparta_api/weather/seoul").then((res) => res.json()).then((data) => {
-        // //         let temp = data['temp']
+        function savebutton_clicked() {
+            let name = $('#name').text(); //페이지 주인 이름
+            let comment = $('#comment').val();//댓글내용
+            let id = $('#id').val(); // 아이디 입력란의 값을 가져옴
+            let password = $('#password').val(); // 비밀번호 입력란의 값을 가져옴
+            console.log(name, comment, id, password)
+            let formData = new FormData();
+            formData.append("name_give", name);
+            formData.append("comment_give", comment);
+            formData.append("id_give", id);
+            formData.append("password_give", password);
+            formData.append()
 
-        // //         $('#temp').text(temp)
+            fetch('/guestbook', { method: "POST", body: formData, }).then((response) => response.json()).then((data) => {
+                console.log(data)
+                alert(data["msg"]); // app.py(서버)로부터 댓글정보를 반환(return)받아 돌아오는 데이터
+                window.location.reload(); 
+                // 방명록 작성되었을 때 새로고침 하지 않고 방명록 값만 가져올 방법이 있는지 찾아보기
 
-        // //     });
-        // // }
-        // function save_comment() {
+            });
+        }
 
-        //     let name = $('#name').val()
-        //     let comment = $('#comment').val()
+        function editbutton_clicked(button) {
+            // 클릭한 버튼의 id 가져오기위해 button을 인자값으로 받음
+            //button.value : <button>태그의 value($commentIdx) ex)방명록의 번호(1, 2, 3,...)
+            let objectId = button.getAttribute('data-id')
+            let targetpassword = $('#editpassword-' + button.value).val();                   //입력한 pw
+            console.log(objectId)
 
-        //     let formData = new FormData();
-        //     formData.append("name_give", name);
-        //     formData.append("comment_give", comment);
+            let formData = new FormData();
+            formData.append("objectId_give", objectId);
+            formData.append("targetpassword_give", targetpassword);
+            fetch('/guestbook/3', { method: "POST", body: formData, }).then((response) => response.json()).then((data) => {
+                // 해당 버튼에 대한 처리
+                if (data["result"] == "success") {
+                    var buttonId = $(this).attr('id');
+                    $('#edit-button-' + button.value).hide();
+                    $('#done-button-' + button.value).show();
 
-        //     fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-        //         //console.log(data)
-        //         alert(data["msg"]);
-        //         window.location.reload()
-        //     });
-        // }
-        // function show_comment() {
-        //     fetch('/guestbook').then((res) => res.json()).then((data) => {
-        //         //alert(data["msg"])
-        //         let rows = data['result']
+                    $('#editcomment-' + button.value).addClass('form-control');
+                    $('#editcomment-' + button.value).removeClass('form-control-plaintext');
+                    $('#editcomment-' + button.value).prop('disabled', false);
 
-        //         $('#comment-list').empty()
-        //         rows.forEach(a => {
-        //             let name = a['name']
-        //             let comment = a['comment']
-        //             let temp_html = `<div class="card">
-        //                                 <div class="card-body">
-        //                                     <blockquote class="blockquote mb-0">
-        //                                         <p>${comment}</p>
-        //                                         <footer class="blockquote-footer">${name}</footer>
-        //                                     </blockquote>
-        //                                 </div>
-        //                             </div>`
-        //             $('#comment-list').append(temp_html)
+                }
+                else if (data["result"] == "fail") {
+                    alert(data["msg"]);
+                }
+            });
+        }
 
-        //         });
-        //     })
-        // }
+        function donebutton_clicked(button) {
+            let objectId = button.getAttribute('data-id')
+            let updatecomment = $('#editcomment-'+button.value).val()
+            let targetpassword = $('#editpassword-' + button.value).val();
+
+            let formData = new FormData();
+            formData.append("objectId_give", objectId);
+            formData.append("updatecomment_give", updatecomment)
+            formData.append("targetpassword_give", targetpassword);
+            fetch('/guestbook/3', { method: "PUT", body: formData, }).then((response) => response.json()).then((data) => {
+                // 해당 버튼에 대한 처리
+                if (data["result"] == "success") {
+                    alert(data["msg"]);
+                    window.location.reload(); 
+                }
+                else if (data["result"] == "fail") {
+                    alert(data["msg"]);
+                }
+            });
+        }
     </script>
 </head>
 
@@ -124,34 +203,26 @@
 
 
     <div class="sidebar">
-        <!-- <a href="#s1"><img src="/static/image/license.png" alt="license" width="50px" height="50px"></a> -->
-        <!-- <a href="#s2"><img src="/static/image/reply.png" alt="graduation" width="50px" height="50px"></a>         -->
-        <!-- <a href="#s3"><img src="/static/image/airplane.png" alt="airplane" width="50px" height="50px"></a> -->
-        <a href="#s1" style="font-size:2.0em; text-decoration:none;">🏠</a>
-        <a href="#s2" style="font-size:2.0em; text-decoration:none;">💬</a>
-        <a href="#s3" style="font-size:2.0em; text-decoration:none;">✈️</a>
-        <a href="#s4" style="font-size:2.0em; text-decoration:none;">📹</a>
-
-        <!-- <a href="#s4"><img src="/static/image/graduation.png" alt="graduation" width="50px" height="50px"></a> -->
+        <a href="#s1" onclick="assignPageValue(1)" style="font-size:2.0em; text-decoration:none;">🏠</a>
+        <a href="#s2" onclick="assignPageValue(2)" style="font-size:2.0em; text-decoration:none;">💬</a>
+        <a href="#s3" onclick="assignPageValue(3)" style="font-size:2.0em; text-decoration:none;">✈️</a>
+        <a href="#s4" onclick="assignPageValue(4)" style="font-size:2.0em; text-decoration:none;">📹</a>
     </div>
 
     <section class="section" id="s1">
         <div class="myprofile">
-            <video height="200px" class="myvideo" muted autoplay loop>
-                <source src="static/video/video.mp4" type="" video/mp4" height="200px">
-            </video>
             <h1>나의 코딩 프로필</h1>
         </div>
-        <div class="mycards" id="comment-list">
-            <div class="introducecard">
-                <p class="wordframe">이름 : <span class="word" id="name">조우진</span></p>
+        <div class="mycards" id="profile-list">
+            <div class="introducecard" action="/guestbook" method="POST">
+                <p class="wordframe">이름 : <span class="word" id="name" name="name">조우진</span></p>
                 <p class="wordframe">MBTI :<span class="word">INFJ</span></p>
                 <p class="wordframe">취미 :<span class="word">✈️여행</span></p>
                 <p class="wordframe">장점 :<span class="word">공감해주기</span></p>
-                <p class="wordframe">블로그 주소 :<a href="https://velog.io/@dnwls3525">조우진 velog</a></p>
+                <p class="wordframe">블로그 주소 : <a href="https://velog.io/@dnwls3525">조우진 velog</a></p>
                 <p class="wordframe">생년월일 : <span class="word">🎂1995.03.03</span></p>
                 <p class="wordframe">전화번호 : <span class="word">📞+(82)10-5543-0461</span></p>
-                <p class="wordframe">Email :<span class="word">📧dnwls3525@gmail.com</span></p>
+                <p class="wordframe">Email : <span class="word">📧dnwls3525@gmail.com</span></p>
                 <!-- <p class="wordframe">협업 스타일 :</p> -->
                 <!-- <p class="wordframe">우리 팀의 약속 :</p> -->
             </div>
@@ -173,75 +244,90 @@
         <h1>section 2</h1>
         <a href="#">top</a>
         <img src="/static/image/title.svg" alt="title">
-
-        <div class="card" id="reply-list">
-
-            <ul class="list-group list-group-flush">
-                <div class="row">
-                    <div class="col">
-                        <label for="list-group-item" class="commentId" id="editnickname-1">유저1</label>
-                    </div>
-                    <div class="col-2" style="margin-right: 30px; ">
-                        <input type="text" class="form-control" id="editPw-1" value="" placeholder="PW">
-                    </div>
-                </div>
-                <li class="list-group-item">
+        <div class="container">
+            <div class="card" id="comment-list">
+                <ul class="list-group list-group-flush">
                     <div class="row">
-                        <div class="col-10">
-                            <input type="text" class="form-control-plaintext" id="editreply-1" disabled
-                                value="1번 방명록 내용 입니다.">
+                        <div class="col">
+                            <label for="list-group-item" class="commentId" id="editid-1">유저1</label>
                         </div>
-                        <div class="col-2">
-                            <!-- 내용변경 -->
-                            <div class="button-group">
-                                <button id="edit-button-1" class="edit-button-static">✏️</button>
-                                <button id="done-button-1" style="display: none;" class="done-button-static">완료</button>
-                                <button id="delete-button-1" class="delete-button-static">❌</button>
+                        <div class="col-2" style="margin-right: 30px; ">
+                            <input type="text" class="form-control" id="editpassword-1" value="" placeholder="PW">
+                        </div>
+                    </div>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-10">
+                                <input type="text" class="form-control-plaintext" id="editcomment-1" disabled
+                                    value="1번 방명록 내용 입니다.">
                             </div>
+                            <div class="col-2">
+                                <!-- 내용변경 -->
+                                <div class="button-group">
+                                    <button id="edit-button-1" class="edit-button-static">✏️</button>
+                                    <button id="done-button-1" style="display: none;"
+                                        class="done-button-static">완료</button>
+                                    <button id="delete-button-1" class="delete-button-static">❌</button>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
 
-            <ul class="list-group list-group-flush">
-                <div class="row">
-                    <div class="col">
-                        <label for="list-group-item" class="commentId" id="editnickname-2">유저2</label>
-                    </div>
-                    <div class="col-2" style="margin-right: 30px;">
-                        <input type="text" class="form-control" id="editPw-2" value="" placeholder="PW">
-                    </div>
-                </div>
-                <li class="list-group-item">
+                <ul class="list-group list-group-flush">
                     <div class="row">
-                        <div class="col-10">
-                            <input type="text" class="form-control-plaintext" id="editreply-2" disabled
-                                value="2번 방명록 내용입니다.">
+                        <div class="col">
+                            <label for="list-group-item" class="commentId" id="editid-2">유저2</label>
                         </div>
-                        <div class="col-2">
-                            <!-- 내용변경 -->
-                            <div class="button-group">
-                                <button id="edit-button-2" class="edit-button-static">✏️</button>
-                                <button id="done-button-2" style="display: none;" class="done-button-static">완료</button>
-                                <button id="delete-button-2" class="delete-button-static">❌</button>
-                            </div>
-
+                        <div class="col-2" style="margin-right: 30px;">
+                            <input type="text" class="form-control" id="editpassword-2" value="" placeholder="PW">
                         </div>
                     </div>
-                </li>
-            </ul>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-10">
+                                <input type="text" class="form-control-plaintext" id="editcomment-2" disabled
+                                    value="2번 방명록 내용입니다.">
+                            </div>
+                            <div class="col-2">
+                                <!-- 내용변경 -->
+                                <div class="button-group">
+                                    <button id="edit-button-2" class="edit-button-static">✏️</button>
+                                    <button id="done-button-2" style="display: none;"
+                                        class="done-button-static">완료</button>
+                                    <button id="delete-button-2" class="delete-button-static">❌</button>
+                                </div>
 
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <nav aria-label="...">
+                <ul class="pagination" id="pagination">
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">1</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="guestbook">
             <div class="guestbook-header">
                 방명록 작성하기
             </div>
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-2">
-                        <input class="form-control" id="nickname" placeholder="ID">
+                        <input class="form-control" id="id" placeholder="ID">
                     </div>
                     <div class="col-2">
                         <input class="form-control" type="password" id="password" placeholder="PW">
@@ -251,11 +337,11 @@
                 <div class="row">
                     <div class="col-10">
                         <div class="mb-3">
-                            <textarea class="form-control" id="reply"></textarea>
+                            <textarea class="form-control" id="comment"></textarea>
                         </div>
                     </div>
                     <div class="col-2">
-                        <button onclick="save_reply()" type="button" id="writeButton">등록</button>
+                        <button onclick="savebutton_clicked()" type="button" id="writeButton">등록</button>
                     </div>
                 </div>
 
