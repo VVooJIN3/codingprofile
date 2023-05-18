@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
+
+* {
+    font-family: 'Sunflower', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul, li {
+    list-style: none;
+}
+
+header > div {
+    width: 90%;
+    min-width: 1000px;
+    max-width: 1200px;
+    height: 80px;
+    margin: 0 auto;
+}
+header .logo {
+    float: left;
+}
+header .logo img {
+    height: 60px;
+    margin-top: 10px;
+}
+header .gnb {
+    float: right;
+    margin-right: 50px;
+}
+header .gnb li {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+header .gnb li:first-chile {
+    margin-left: 0;
+}
+
+#grid {
+    font-size: 17px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 330px;
+    margin: 100px 0;
+}
+
+.mytxt {
+    text-align: right;
+    margin-top: 25px;
+    margin-right: 180px;
+}
+
+.myimg img {
+    text-align: right;
+    width: 270px;
+    height: 270px;
+    margin-top: 20px;
+    margin-left: 50px;
+    border-radius: 50%;
+}
+
+.intro {
+    color: green;
+}
+
+.escape {
+    text-align: center;
+    margin: 150px 0;
+}
+
+.escape img {
+    width: 60%;
+    text-align: center;
+}
+
+.escape div {
+    margin: 150px 0;
+}
+
+.escape p {
+    margin-top: 50px;
+}
+
+.concert {
+    text-align: center;
+    margin: 150px 0;
+}
+
+.concert img {
+    width: 25%;
+    margin: 0 2%;
+    border-radius: 10px;
+}
+
+.concert div {
+    margin: 150px 0;
+}
+
+.concert p {
+    margin-top: 50px;
+}
+
+.guestbook {
+    margin-top: 200px;
+    margin-left: 50px;
+}
+
+.guestbook input {
+    width: 200px;
+    height: 30px;
+    margin: 5px 0px 0px 10px;
+}
+
+.guestbook textarea {
+    width: 400px;
+    height: 100px;
+    margin: 3px 0px 0px 10px;
+}
+
+.guestbook button {
+    margin-bottom: 30px;
+}
+
+.table {
+    margin-top: 30px;
+    margin-left: 50px;
+}
