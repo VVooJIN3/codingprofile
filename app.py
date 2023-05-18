@@ -10,6 +10,7 @@ ca=certifi.where()
 from bson import ObjectId
 
 # 조우진 : mongodb+srv://sparta:test@cluster0.89nsamy.mongodb.net/?retryWrites=true&w=majority
+# 박수빈 : mongodb+srv://sparta:test@cluster0.mctj20j.mongodb.net/?retryWrites=true&w=majority
 client = MongoClient('mongodb+srv://sparta:test@cluster0.89nsamy.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.dbsparta
 
@@ -18,7 +19,7 @@ db = client.dbsparta
 def home():
     #기본 페이지 불러오기
    return render_template('woojin.html')
-
+######woojin
 #방명록 불러오기 
 @app.route('/guestbook',methods=['GET'])
 def guestbook_get():
@@ -64,10 +65,10 @@ def guestbook_delete():
 @app.route('/guestbook/3',methods=["POST","PUT"])
 def guestbook_update():
     if request.method == "POST": #수정할 방명록을 페이지에서 가져오기
-        objectId_receive = request.form['objectId_give'] #db _id값
+        objectId_receive = request.form['objectId_give'] #db 키(_id)값
         targetpassword_receive = request.form['targetpassword_give']
 
-        target = db.guestbook.find_one({'_id':ObjectId(objectId_receive)}) #댓글 테이블에 아이디와 댓글이 있는지 확인
+        target = db.guestbook.find_one({'_id':ObjectId(objectId_receive)}) #댓글 테이블에 (_id)값을 가진 아이디와 댓글이 있는지 확인
         if target['password'] != targetpassword_receive: #입력한 비밀번호가 다를 때
             return jsonify({'result':'fail', 'msg': '비밀번호가 틀립니다.'})
         else: # 입력한 비밀번호가 맞을 때
@@ -87,6 +88,39 @@ def guestbook_update():
             db.guestbook.update_one(target,{'$set':{'comment':comment_receive}})
 
             return jsonify({'result' : 'success', 'msg' : '수정이 완료되었습니다'})
+#####woojin
+
+
+
+##################subin
+@app.route('/subin')
+def subinpage():
+    #멤버 수빈 페이지 불러오기
+   return render_template('subin.html')
+
+@app.route("/guestbook", methods=["POST"])
+def guestbook_post():
+    
+    name_receive = request.form['name_give']
+    id_receive = request.form['id_give']
+    password_receive = request.form['password_give']
+    comment_receive = request.form['comment_give']
+    doc = {
+        'name' : name_receive,
+        'id' : id_receive,
+        'password' : password_receive,
+        'comment' : comment_receive
+    }
+    db.guestbook.insert_one(doc)
+
+    return jsonify({'msg': '저장 완료!'})
+
+@app.route("/guestbook", methods=["GET"])
+def guestbook_get():
+    all_comments = list(db.guestbook.find({}, {'_id': False}))
+    return jsonify({'result': all_comments})
+####subin
+
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5001, debug=True)
