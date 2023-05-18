@@ -21,6 +21,25 @@
       font-family: 'Gowun Dodum', sans-serif;
     }
 
+    /* 마우스 오버 효과 */
+    body {
+      box-sizing: border-box;
+      font-family: Consolas, monospace;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .a {
+      width: 400px;
+      margin: 0px auto;
+    }
+
     /*  상단 배경 이미지 */
     .head {
       width: 100%;
@@ -38,7 +57,14 @@
       justify-content: center;
     }
 
-    /* 중간 개인 프로필 사진 */
+    /* 프로필 내용 */
+    .profile {
+      font-size: 18px;
+      line-height: normal;
+      margin: 30px 5% 0 5%;
+    }
+
+    /* 개인 프로필 사진 */
     .image {
       width: 300px;
       height: 300px;
@@ -51,20 +77,30 @@
       margin: 0 5% 0 0;
 
       float: right;
+
+      transition: all 0.2s linear;
     }
 
     /* 프로필 내용 */
-    .profile {
+    .pprofile {
       font-size: 18px;
       line-height: normal;
       margin: 30px 5% 0 5%;
+      width: 1612.81px;
+      height: 300px;
     }
+
+    .image:hover {
+      transform: scale(1.4);
+    }
+
+
 
     /* 방명록 작성 박스 */
     .inputbox {
       width: 95%;
       max-width: 500px;
-      margin: 10% auto 0px 5%;
+      margin: 20% auto 0px 5%;
       padding: 20px;
       box-shadow: 0px 0px 3px 0px gray;
     }
@@ -101,10 +137,10 @@
       let comment = $('#combox').val()
       let name = $('#name').text()
       console.log($('#name').text())
-      if(id == null || id == "") {
+      if (id == null || id == "") {
         alert("ID를 입력해주세요!")
         return false
-      }else if (pw == null || pw == "") {
+      } else if (pw == null || pw == "") {
         alert("패스워드를 입력해주세요!")
         return false
       }
@@ -113,7 +149,7 @@
       let formData = new FormData();
       formData.append("id_give", id);
       formData.append("pw_give", pw);
-      formData.append("name_give", name); 
+      formData.append("name_give", name);
       formData.append("comment_give", comment);
 
       fetch('/savecomment', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
@@ -121,31 +157,31 @@
         window.location.reload()
       });
     }
-// 방명록 수정 기능
+    // 방명록 수정 기능
     // function edit_comment(num) {
     //   check_comment()
 
     // }
 
 
-// 방명록 삭제기능
+    // 방명록 삭제기능
     function delete_comment(num) {
 
       // check_comment(num)
       // return false
-      
+
       let formData = new FormData();
       formData.append("num_give", num);
 
-      console.log(num,id)
-      
+      console.log(num, id)
+
       fetch('/deletecomment', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
         alert(data["msg"]);
         window.location.reload()
       });
 
     }
-    
+
     // 본인 확인 팝업 호출
     // function check_comment(num){
     //   $('#chkbox').show()
@@ -158,16 +194,16 @@
 
     // 본인 확인 기능
     // function send_data(num){
-       
+
     //   let pw = $('#chkidbox').val() //인풋박스 값 읽어오기
-      
-      
-       
+
+
+
     //   let formData = new FormData();
     //   formData.append("pw_give", pw);
     //   formData.append("num_give", num);
 
-      
+
     //   fetch('/check', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
     //     alert(data["msg"]);
     //     $('#chkbox').hide()
@@ -177,13 +213,13 @@
 
     $(document).ready(function () {
       listing();
-      
+
     });
 
     function listing() {
       fetch('/guestbook').then((res) => res.json()).then((data) => {
         let rows = data['result']
-        
+
 
         $('#comment-list').empty()
 
@@ -194,7 +230,7 @@
           let pw = a['pw']
           let comment = a['comment']
           let num = a['num']
-          
+
           if ($('#name').text() == a['name']) {
             let temp_html = `<div class="card">
                                       <div class="card-body">
@@ -203,7 +239,6 @@
                                           <footer class="blockquote-footer">${id}</footer>
                                         </blockquote>
                                         <div class="d-flex justify-content-end">
-                                          <button onclick="edit_comment(${num})" type="button" class="btn btn-outline-secondary" >수정</button>
                                           <button onclick="delete_comment(${num})" type="button" class="btn btn-outline-secondary">삭제</button>
                                         </div>
                                         <div class="modal" tabindex="-1" id ="chkbox">
@@ -233,6 +268,9 @@
       })
     }
 
+    function history_back() {
+      history.back();
+    }
   </script>
 </head>
 
@@ -242,7 +280,13 @@
       <h1>행복한 공원</h1>
 
     </div>
-    <div class="body">
+    <div class="body1">
+      <!-- 홈 버튼 -->
+      <nav class="navbar fixed-top navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">팀 소개</a>
+        </div>
+      </nav>
 
       <div class="image">
       </div>
@@ -257,25 +301,67 @@
         <p>선호하는 협업 스타일 : 같이 일하는 게 처음이라 모르지만 소통하면서 모르는 건 같이 공유해서 풀어나가는 스타일이 좋을 거 라 생각합니다.</p>
       </div>
     </div>
-    <div class="inputbox">
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="id">ID</span>
-        <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
-          aria-describedby="basic-addon1">
-        <span class="input-group-text" id="pw">PW</span>
-        <input id="pwbox" type="text" class="form-control" placeholder="Password" aria-label="pw"
-          aria-describedby="basic-addon1">
+    <br><br><br><br>
+    <div class="body2">
+      <div class="pprofile">
+        <div style="display:inline-block;vertical-align:left;">
+          <img src="https://lh3.google.com/u/0/d/1P_2GNBY0eMkRt6cPygR_r3nQ47RF_RH5=w1862-h1326-iv1" alt="img"
+            style="width:250px; height:300px;" />
+        </div>
+        <div style="display:inline-block; margin-left: 3%;">
+          <p>저를 소개하기 위해 사진첩을 둘러보니</p>
+          <p>윤슬 사진이 많은걸 알게되었고 이 건 그중 가장 최근에 찍은 사진입니다</p>
+          <p>아마도 감성? 낭만 있는 사람인가 봅니다.</p>
+        </div>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="comment">방명록</span>
-        <input id="combox" type="text" class="form-control" placeholder="자유롭게 글을 달아주세요." aria-label="comment"
-          aria-describedby="basic-addon1">
+
+      <div class="pprofile">
+        <div style="display:inline-block;vertical-align:left; float:right; margin-right: 5%;">
+          <img src="https://lh3.google.com/u/0/d/1UcqmTu6lpEPRq7XOfurNgFJusyrkhqBQ=w1862-h1326-iv1" alt="img"
+            style="width:250px; height:300px;" />
+        </div>
+        <div style="display:inline-block; float: right; margin-right: 3%;">
+          <p>저는 대부분의 운동을 좋아합니다</p>
+          <p>그중에서도 특히 헬스를 좋아하는데 헬스는 지금 취미로 6년째 이어가고 있습니다</p>
+          <p>나중에 꼭 바디프로필도 준비해 보려구요</p>
+          <p>우리들이 공부하느라 계속 앉아있고 집중하다 보면</p>
+          <p>어깨도 굽을 거 같은데 많은 분들이 조금이라도 운동을 하셨으면 좋겠습니다!!</p>
+        </div>
       </div>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button onclick="save_comment()" type="button" class="btn btn-outline-secondary">방명록 작성</button>
+
+      <div class="pprofile">
+        <div style="display:inline-block;vertical-align:left;">
+          <<iframe title="'행복한공원'에서 업로드한 동영상" width="640" height="360" src="https://play-tv.kakao.com/embed/player/cliplink/438114876?service=player_share" allowfullscreen frameborder="0" scrolling="no" allow="autoplay; fullscreen; encrypted-media"></iframe>
+        </div>
+        <div style="display:inline-block; margin-left: 3%;">
+          <p>추가적으로 작년부터 깊게 빠진 운동이 있는데</p>
+          <p>바로!! 크로스핏입니다 너무 중도 되어 버렸어요...</p>
+          <p>이거 덕분에 살도 많이 빠지고 체력도 많이 올라와서</p>
+          <p>정말 여러모로 도움 많이 되는 운동이구 </p>
+          <p>추천하는 운동입니다!!</p>
+        </div>
       </div>
+
+      <div class="inputbox">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="id">ID</span>
+          <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
+            aria-describedby="basic-addon1">
+          <span class="input-group-text" id="pw">PW</span>
+          <input id="pwbox" type="text" class="form-control" placeholder="Password" aria-label="pw"
+            aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="comment">방명록</span>
+          <input id="combox" type="text" class="form-control" placeholder="자유롭게 글을 달아주세요." aria-label="comment"
+            aria-describedby="basic-addon1">
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button onclick="save_comment()" type="button" class="btn btn-outline-secondary">방명록 작성</button>
+        </div>
+      </div>
+      <hr color="black">
     </div>
-    <hr color="black">
     <div class="footer">
 
       <div class="comment-list">
@@ -288,10 +374,10 @@
                 <footer class="blockquote-footer">호빵맨</footer>
               </blockquote>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button onclick="edit_comment($(snum))" type="button" class="btn btn-outline-secondary">수정</button>
+                <!-- <button onclick="edit_comment($(snum))" type="button" class="btn btn-outline-secondary">수정</button> -->
                 <button onclick="delete_comment($(num))" type="button" class="btn btn-outline-secondary">삭제</button>
               </div>
-              <div class="modal" tabindex="-1" id ="chkbox">
+              <div class="modal" tabindex="-1" id="chkbox">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -300,7 +386,7 @@
                     </div>
                     <div class="modal-body">
                       <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
-          aria-describedby="basic-addon1">
+                        aria-describedby="basic-addon1">
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

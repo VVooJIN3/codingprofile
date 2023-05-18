@@ -26,7 +26,7 @@ def happy():
 def savecomment_post():
 
     count = list(db.guestbook.find({}, {'_id':False})) #db 데이터 수를 카운트
-    num = len(count) + 1  # 카운트 한 수에 1을 더해서 새로운 데이터 카운트
+    num = len(count) + 1  # 카운트 한 수에 1을 더해서 새로운 데이터에 숫자 넣어주기
 
     # 화면에서 넘어 오는 값
     id_receive = request.form['id_give']
