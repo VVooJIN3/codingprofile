@@ -1,4 +1,14 @@
+
+# 역할 분담
+# 최신혜 : 페이지 이동
+# 박행복 : 방명록 조회
+# 이경원 : 방명록 작성
+# 조우진 : 방명록 수정/삭제
+# 박수빈 : 메인 페이지 프론트엔드
+# 공통 : 개인 프로필 프론트엔드
+
 #pip install flask requests dnspython pymongo
+
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime,timedelta
 app = Flask(__name__)
@@ -6,67 +16,50 @@ from pymongo import MongoClient
 import certifi
 from bson import ObjectId
 import logging
-
 import requests
-from bs4 import BeautifulSoup
+
 
 # 조우진 : mongodb+srv://sparta:test@cluster0.89nsamy.mongodb.net/?retryWrites=true&w=majority
 # 박수빈 : mongodb+srv://sparta:test@cluster0.mctj20j.mongodb.net/?retryWrites=true&w=majority
 # 이경원 : mongodb+srv://sparta:test@cluster0.atah4wp.mongodb.net/?retryWrites=true&w=majority
 # 박행복 : mongodb+srv://sparta:test@cluster0.mctqe10.mongodb.net/?retryWrites=true&w=majority
+ca = certifi.where()
 client = MongoClient('mongodb+srv://sparta:test@cluster0.89nsamy.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
 
 db = client.dbsparta
 
 
+#페이지 이동하기
 @app.route('/')
 def home():
-    return render_template('kyeongwon.html')
+    return render_template('index.html')
 
-@app.route('/woojin')
+@app.route('/subin')
 def subinpage():
     #멤버 수빈 페이지 불러오기
+   return render_template('subin.html')
+
+@app.route('/woojin')   
+def woojinpage():
+    #멤버 우진 페이지 불러오기
    return render_template('woojin.html')
 
+@app.route('/happiipark')   
+def happypage():
+    #멤버 행복 페이지 불러오기
+   return render_template('happy.html')
+
+@app.route('/lee')  
+def leepage():
+    #멤버 경원 페이지 불러오기
+   return render_template('lee.html')
+
+
 #########################################################################################################
-# woojin
-#방명록 불러오기 
-@app.route('/guestbook',methods=['GET'])
-def guestbook_get():
-    name_give = request.args.get('name',"")
-    print(name_give)
-    all_guestbook = list(db.guestbook.find({"name":name_give}))    
-    
-    for guestbook in all_guestbook:#_id값을 timestmp로 변경하여 html에 전달
-        objectid = guestbook["_id"]
-        guestbook["_id"]=str(guestbook["_id"])
-        timestamp = objectid.generation_time#objectID값을 이용하여 타임스탬프 값 얻기
-        korea_timezone = timedelta(hours=9) #UTC와 한국의 시차
-        timestamp_kr = timestamp + korea_timezone
-        formatted_timestamp = timestamp_kr.strftime("%Y.%m.%d %H:%M:%S")
-        guestbook["timestamp"] = formatted_timestamp
-    # 지정된 name의 방명록 데이터 모두 가져오기 ,'_id': 가져옴 - 기본값 (true)
-    # "_id"값을 html로 넘겨주면 방명록 데이터가 정상 조회되지 않음
-    return jsonify({'result': all_guestbook})
-    
-#방명록 작성하기    
-@app.route('/guestbook',methods=['POST'])
-def guestbook_add():
-    name_receive = request.form['name_give']
-    comment_receive = request.form['comment_give']
-    id_receive = request.form['id_give']
-    password_receive = request.form['password_give']
-    print(name_receive,comment_receive,id_receive,password_receive)
-    doc = {'name' : name_receive,
-           'comment' : comment_receive,
-           'id' : id_receive,
-           'password' : password_receive
-           }
-    db.guestbook.insert_one(doc)
-    return jsonify({'result':'success', 'msg': '댓글 저장이 완료되었습니다.'})
-  
+# 조우진 : 방명록 수정, 삭제하기
+
 #방명록 삭제하기
-@app.route('/guestbook/2',methods=["GET","POST"])
+@app.route('/guestbook/2',methods=["DELETE"])
 def guestbook_delete():
     #방명록 삭제기능
    return render_template('woojin.html')
@@ -98,44 +91,77 @@ def guestbook_update():
             db.guestbook.update_one(target,{'$set':{'comment':comment_receive}})
 
             return jsonify({'result' : 'success', 'msg' : '수정이 완료되었습니다'})
+            
+# #방명록 불러오기 
+# @app.route('/guestbook',methods=['GET'])
+# def guestbook_get():
+#     name_give = request.args.get('name',"")
+#     print(name_give)
+#     all_guestbook = list(db.guestbook.find({"name":name_give}))    
+    
+#     for guestbook in all_guestbook:#_id값을 timestmp로 변경하여 html에 전달
+#         objectid = guestbook["_id"]
+#         guestbook["_id"]=str(guestbook["_id"])
+#         timestamp = objectid.generation_time#objectID값을 이용하여 타임스탬프 값 얻기
+#         korea_timezone = timedelta(hours=9) #UTC와 한국의 시차
+#         timestamp_kr = timestamp + korea_timezone
+#         formatted_timestamp = timestamp_kr.strftime("%Y.%m.%d %H:%M:%S")
+#         guestbook["timestamp"] = formatted_timestamp
+#     # 지정된 name의 방명록 데이터 모두 가져오기 ,'_id': 가져옴 - 기본값 (true)
+#     # "_id"값을 html로 넘겨주면 방명록 데이터가 정상 조회되지 않음
+#     return jsonify({'result': all_guestbook})
+    
+# #방명록 작성하기    
+# @app.route('/guestbook',methods=['POST'])
+# def guestbook_add():
+#     name_receive = request.form['name_give']
+#     comment_receive = request.form['comment_give']
+#     id_receive = request.form['id_give']
+#     password_receive = request.form['password_give']
+#     print(name_receive,comment_receive,id_receive,password_receive)
+#     doc = {'name' : name_receive,
+#            'comment' : comment_receive,
+#            'id' : id_receive,
+#            'password' : password_receive
+#            }
+#     db.guestbook.insert_one(doc)
+#     return jsonify({'result':'success', 'msg': '댓글 저장이 완료되었습니다.'})
+  
+
 ###########################################################################
 # woojin
 
 
 
 ############################################################################################################
-# subin
-@app.route('/subin')
-def subinpage():
-    #멤버 수빈 페이지 불러오기
-   return render_template('subin.html')
+# 박수빈 : 메인 프론트엔드
 
-@app.route("/guestbook", methods=["POST"])
-def guestbook_post():
+# @app.route("/guestbook", methods=["POST"])
+# def guestbook_post():
     
-    name_receive = request.form['name_give']
-    id_receive = request.form['id_give']
-    password_receive = request.form['password_give']
-    comment_receive = request.form['comment_give']
-    doc = {
-        'name' : name_receive,
-        'id' : id_receive,
-        'password' : password_receive,
-        'comment' : comment_receive
-    }
-    db.guestbook.insert_one(doc)
+#     name_receive = request.form['name_give']
+#     id_receive = request.form['id_give']
+#     password_receive = request.form['password_give']
+#     comment_receive = request.form['comment_give']
+#     doc = {
+#         'name' : name_receive,
+#         'id' : id_receive,
+#         'password' : password_receive,
+#         'comment' : comment_receive
+#     }
+#     db.guestbook.insert_one(doc)
 
-    return jsonify({'msg': '저장 완료!'})
+#     return jsonify({'msg': '저장 완료!'})
 
-@app.route("/guestbook", methods=["GET"])
-def guestbook_get():
-    all_comments = list(db.guestbook.find({}, {'_id': False}))
-    return jsonify({'result': all_comments})
+# @app.route("/guestbook", methods=["GET"])
+# def guestbook_get():
+#     all_comments = list(db.guestbook.find({}, {'_id': False}))
+#     return jsonify({'result': all_comments})
 #############################################################################################
 #subin
 
 #############################################################################################
-#lee
+#이경원 : 박명록 작성하기
 @app.route('/guestbook', methods=['POST'])
 def guestbook_post():
    name_receive = request.form['name_give']
@@ -152,41 +178,43 @@ def guestbook_post():
 
    return jsonify({'msg': '저장완료!'})
 
-@app.route("/guestbook", methods=["GET"])
-def guestbook_get():
-    guestbook_data = list(db.guestbook.find({},{'_id':False}))
-    return jsonify({'result': guestbook_data})
+# @app.route("/guestbook", methods=["GET"])
+# def guestbook_get():
+#     guestbook_data = list(db.guestbook.find({},{'_id':False}))
+#     return jsonify({'result': guestbook_data})
 ##########################################################
 #lee
 
 
 
 #############################################
-#happy
-@app.route('/happiipark')
-def happy():
-    return render_template('happy.html')
+#박행복 : 방명록 조회하기
 
-@app.route("/savecomment", methods=["POST"])
-def savecomment_post():
 
-    count = list(db.guestbook.find({}, {'_id':False})) #db 데이터 수를 카운트
-    num = len(count) + 1  # 카운트 한 수에 1을 더해서 새로운 데이터 카운트
+@app.route("/guestbook", methods=["GET"])
+def guestbook_get():
+    guestbook = list(db.guestbook.find({},{'_id':False}))
+    return jsonify({'result':guestbook})
 
-    # 화면에서 넘어 오는 값
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
-    name_receive = request.form['name_give']
-    comment_receive = request.form['comment_give']
+# @app.route("/savecomment", methods=["POST"])
+# def savecomment_post():
 
-    doc = {
-    'id':id_receive,
-    'pw':pw_receive,
-    'name':name_receive,
-    'comment':comment_receive,
-    'num' : num
-}
-    
+#     count = list(db.guestbook.find({}, {'_id':False})) #db 데이터 수를 카운트
+#     num = len(count) + 1  # 카운트 한 수에 1을 더해서 새로운 데이터 카운트
+
+#     # 화면에서 넘어 오는 값
+#     id_receive = request.form['id_give']
+#     pw_receive = request.form['pw_give']
+#     name_receive = request.form['name_give']
+#     comment_receive = request.form['comment_give']
+
+#     doc = {
+#     'id':id_receive,
+#     'pw':pw_receive,
+#     'name':name_receive,
+#     'comment':comment_receive,
+#     'num' : num
+# }
     
     # headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     # data = requests.get(url_receive,headers=headers)
@@ -198,60 +226,39 @@ def savecomment_post():
     # ogdesc = soup.select_one('meta[property="og:description"]')['content']
     # ogimage = soup.select_one('meta[property="og:image"]')['content']
 
-   
-
-    db.guestbook.insert_one(doc)
+    # db.guestbook.insert_one(doc)
     
-    return jsonify({'msg':'방명록 저장완료!'})
+    # return jsonify({'msg':'방명록 저장완료!'})
 
 
 
-@app.route("/deletecomment", methods=["POST"])
-def deletecomment_post():
+# @app.route("/deletecomment", methods=["POST"])
+# def deletecomment_post():
 
-    delete_receive = request.form["num_give"]
-    # logging.warn("loglog"+ delete_receive)
+#     delete_receive = request.form["num_give"]
+#     # logging.warn("loglog"+ delete_receive)
     
-    db.guestbook.delete_one({'num': int(delete_receive)})
-    return jsonify({'msg':'방명록 삭제완료!'})
+#     db.guestbook.delete_one({'num': int(delete_receive)})
+#     return jsonify({'msg':'방명록 삭제완료!'})
 
 
 
-@app.route("/check", methods=["POST"])
-def check_post():
+# @app.route("/check", methods=["POST"])
+# def check_post():
+#     pw_receive = request.form["pw_give"]
+#     num_receive = request.form["num_give"]
+#     print("전달 받은 패스워드 : "+ pw_receive+ "디비 넘버"+ int(num_receive))
+#     a = list(db.guestbook.find({'pw':pw_receive, 'num':int(num_receive)},{'_id':False}))
+#     b = list(db.guestbook.find({'num':int(num_receive)},{'_id':False}))
+#     for i in a:
+#         print(i)
+#     logging.warn("")
+#     for i in b:
+#         print(i)
 
-    pw_receive = request.form["pw_give"]
-    num_receive = request.form["num_give"]
+#     # db.guestbook.delete_one({'num': int(delete_receive)})
+#     return jsonify({'msg':'본인 확인 완료!'})
 
-    print("전달 받은 패스워드 : "+ pw_receive+ "디비 넘버"+ int(num_receive))
-
-    a = list(db.guestbook.find({'pw':pw_receive, 'num':int(num_receive)},{'_id':False}))
-    b = list(db.guestbook.find({'num':int(num_receive)},{'_id':False}))
-
-    for i in a:
-        print(i)
-
-
-    logging.warn("")
-
-
-    for i in b:
-        print(i)
-
-
-    
-
-    
-    
-    # db.guestbook.delete_one({'num': int(delete_receive)})
-    return jsonify({'msg':'본인 확인 완료!'})
-
-
-
-@app.route("/guestbook", methods=["GET"])
-def guestbook_get():
-    guestbook = list(db.guestbook.find({},{'_id':False}))
-    return jsonify({'result':guestbook})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
