@@ -91,7 +91,7 @@
     }
 
     .image:hover {
-      transform: scale(1.4);
+      transform: scale(1.4);  /*이미지 확대 */
     }
 
 
@@ -120,23 +120,13 @@
     }
   </style>
   <script>
-
-    // url 주소에서 본인 url 가져오기
-    // let u = window.location.href
-    // console.log("현재 url 주소 :", u)
-    // let ur = u.split('/')
-    // console.log("주소 를 / 기준으로 나누기 : ", ur)
-    // let url = ur[3]   뒤 사용자의 아이디 키 값 데이터에서 구분 하기위해
-    // console.log("/ 뒤 문자열 : ", url)
-
-
     // 방명록 저장 기능
     function save_comment() {
       let id = $('#idbox').val()
       let pw = $('#pwbox').val()
       let comment = $('#combox').val()
       let name = $('#name').text()
-      console.log($('#name').text())
+      // console.log($('#name').text())
       if (id == null || id == "") {
         alert("ID를 입력해주세요!")
         return false
@@ -148,27 +138,19 @@
 
       let formData = new FormData();
       formData.append("id_give", id);
-      formData.append("pw_give", pw);
+      formData.append("password_give", pw);
       formData.append("name_give", name);
       formData.append("comment_give", comment);
 
-      fetch('/savecomment', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+      fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
         alert(data["msg"]);
         window.location.reload()
       });
     }
-    // 방명록 수정 기능
-    // function edit_comment(num) {
-    //   check_comment()
-
-    // }
-
-
     // 방명록 삭제기능
     function delete_comment(num) {
 
-      // check_comment(num)
-      // return false
+
 
       let formData = new FormData();
       formData.append("num_give", num);
@@ -181,35 +163,6 @@
       });
 
     }
-
-    // 본인 확인 팝업 호출
-    // function check_comment(num){
-    //   $('#chkbox').show()
-    // }
-    // 본인 확인팝업 닫기
-    // function close_box(){
-    //   $('#chkbox').hide()
-    //   window.location.reload()
-    // }
-
-    // 본인 확인 기능
-    // function send_data(num){
-
-    //   let pw = $('#chkidbox').val() //인풋박스 값 읽어오기
-
-
-
-    //   let formData = new FormData();
-    //   formData.append("pw_give", pw);
-    //   formData.append("num_give", num);
-
-
-    //   fetch('/check', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-    //     alert(data["msg"]);
-    //     $('#chkbox').hide()
-    //   });
-    // }
-
 
     $(document).ready(function () {
       listing();
@@ -239,25 +192,12 @@
                                           <footer class="blockquote-footer">${id}</footer>
                                         </blockquote>
                                         <div class="d-flex justify-content-end">
+                                          <button onclick="edit_comment($(snum))" type="button" class="btn btn-outline-secondary">수정</button>
                                           <button onclick="delete_comment(${num})" type="button" class="btn btn-outline-secondary">삭제</button>
                                         </div>
-                                        <div class="modal" tabindex="-1" id ="chkbox">
-                                          <div class="modal-dialog">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title">비밀번호 확인</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              </div>
-                                              <div class="modal-body">
-                                                <input id="chkidbox" type="text" class="form-control" placeholder="pw" aria-label="id"
-          aria-describedby="basic-addon1">
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button onclick="close_box()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                                <button onclick="send_data(${num})" type="button" class="btn btn-primary">확인</button>
-                                              </div>
-                                            </div>
-                                          </div>
+                                        <div class="input-group flex-nowrap">
+                                          <span class="input-group-text" id="addon-wrapping">PW</span>
+                                          <input type="text" class="form-control" placeholder="Username" aria-label="Passward" aria-describedby="addon-wrapping">
                                         </div>
                                       </div>
                                     </div>`
@@ -281,7 +221,7 @@
 
     </div>
     <div class="body1">
-      <!-- 홈 버튼 -->
+      <!-- 네비 -->
       <nav class="navbar fixed-top navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">팀 소개</a>
@@ -348,7 +288,7 @@
           <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
             aria-describedby="basic-addon1">
           <span class="input-group-text" id="pw">PW</span>
-          <input id="pwbox" type="text" class="form-control" placeholder="Password" aria-label="pw"
+          <input id="pwbox" type="password" class="form-control" placeholder="Password" aria-label="pw"
             aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
@@ -374,7 +314,6 @@
                 <footer class="blockquote-footer">호빵맨</footer>
               </blockquote>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <!-- <button onclick="edit_comment($(snum))" type="button" class="btn btn-outline-secondary">수정</button> -->
                 <button onclick="delete_comment($(num))" type="button" class="btn btn-outline-secondary">삭제</button>
               </div>
               <div class="modal" tabindex="-1" id="chkbox">
