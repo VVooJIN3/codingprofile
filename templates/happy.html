@@ -83,6 +83,10 @@
       margin-bottom: 10px;
     }
   </style>
+
+
+  <!--javascript-->
+  <script src="static/js/main.js"></script>
   <script>
 
     // url 주소에서 본인 url 가져오기
@@ -94,17 +98,16 @@
     // console.log("/ 뒤 문자열 : ", url)
 
 
-    // 방명록 저장 기능
+    // // 방명록 저장 기능
     function save_comment() {
-      let id = $('#idbox').val()
-      let pw = $('#pwbox').val()
-      let comment = $('#combox').val()
+      let id = $('#id').val()
+      let pw = $('#password').val()
+      let comment = $('#comment').val()
       let name = $('#name').text()
-      console.log($('#name').text())
-      if(id == null || id == "") {
+      if (id == null || id == "") {
         alert("ID를 입력해주세요!")
         return false
-      }else if (pw == null || pw == "") {
+      } else if (pw == null || pw == "") {
         alert("패스워드를 입력해주세요!")
         return false
       }
@@ -112,41 +115,42 @@
 
       let formData = new FormData();
       formData.append("id_give", id);
-      formData.append("pw_give", pw);
-      formData.append("name_give", name); 
+      formData.append("password_give", pw);
+      formData.append("name_give", name);
       formData.append("comment_give", comment);
 
-      fetch('/savecomment', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+      fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
         alert(data["msg"]);
         window.location.reload()
       });
     }
-// 방명록 수정 기능
-    // function edit_comment(num) {
-    //   check_comment()
+    // }
+    // // 방명록 수정 기능
+    // // function edit_comment(num) {
+    // //   check_comment()
+
+    // // }
+
+
+    // // 방명록 삭제기능
+    // function delete_comment(num) {
+
+    //   // check_comment(num)
+    //   // return false
+
+    //   let formData = new FormData();
+    //   formData.append("num_give", num);
+
+    //   console.log(num, id)
+
+    //   fetch('/deletecomment', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+    //     alert(data["msg"]);
+    //     window.location.reload()
+    //   });
 
     // }
 
-
-// 방명록 삭제기능
-    function delete_comment(num) {
-
-      // check_comment(num)
-      // return false
-      
-      let formData = new FormData();
-      formData.append("num_give", num);
-
-      console.log(num,id)
-      
-      fetch('/deletecomment', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-        alert(data["msg"]);
-        window.location.reload()
-      });
-
-    }
-    
-    // 본인 확인 팝업 호출
+    // // 본인 확인 팝업 호출
     // function check_comment(num){
     //   $('#chkbox').show()
     // }
@@ -158,16 +162,16 @@
 
     // 본인 확인 기능
     // function send_data(num){
-       
+
     //   let pw = $('#chkidbox').val() //인풋박스 값 읽어오기
-      
-      
-       
+
+
+
     //   let formData = new FormData();
     //   formData.append("pw_give", pw);
     //   formData.append("num_give", num);
 
-      
+
     //   fetch('/check', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
     //     alert(data["msg"]);
     //     $('#chkbox').hide()
@@ -176,62 +180,63 @@
 
 
     $(document).ready(function () {
-      listing();
-      
+      show_comment();
+
     });
 
-    function listing() {
-      fetch('/guestbook').then((res) => res.json()).then((data) => {
-        let rows = data['result']
-        
+    // function show_comment() {
+    //   let name=$('#name').text()
+    //   fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
+    //     let rows = data['result']
 
-        $('#comment-list').empty()
 
-        rows.forEach(a => {
+    //     $('#comment-list').empty()
 
-          let name = a['name']
-          let id = a['id']
-          let pw = a['pw']
-          let comment = a['comment']
-          let num = a['num']
-          
-          if ($('#name').text() == a['name']) {
-            let temp_html = `<div class="card">
-                                      <div class="card-body">
-                                        <blockquote class="blockquote mb-0">
-                                          <p>${comment}</p>
-                                          <footer class="blockquote-footer">${id}</footer>
-                                        </blockquote>
-                                        <div class="d-flex justify-content-end">
-                                          <button onclick="edit_comment(${num})" type="button" class="btn btn-outline-secondary" >수정</button>
-                                          <button onclick="delete_comment(${num})" type="button" class="btn btn-outline-secondary">삭제</button>
-                                        </div>
-                                        <div class="modal" tabindex="-1" id ="chkbox">
-                                          <div class="modal-dialog">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title">비밀번호 확인</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              </div>
-                                              <div class="modal-body">
-                                                <input id="chkidbox" type="text" class="form-control" placeholder="pw" aria-label="id"
-          aria-describedby="basic-addon1">
-                                              </div>
-                                              <div class="modal-footer">
-                                                <button onclick="close_box()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                                <button onclick="send_data(${num})" type="button" class="btn btn-primary">확인</button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>`
-            $('#comment-list').append(temp_html)
-          }
+    //     rows.forEach(a => {
 
-        });
-      })
-    }
+    //       let name = a['name']
+    //       let id = a['id']
+    //       let pw = a['pw']
+    //       let comment = a['comment']
+    //       let num = a['num']
+
+    //       if ($('#name').text() == a['name']) {
+    //         let temp_html = `<div class="card">
+    //                                   <div class="card-body">
+    //                                     <blockquote class="blockquote mb-0">
+    //                                       <p>${comment}</p>
+    //                                       <footer class="blockquote-footer">${id}</footer>
+    //                                     </blockquote>
+    //                                     <div class="d-flex justify-content-end">
+    //                                       <button onclick="edit_comment(${num})" type="button" class="btn btn-outline-secondary" >수정</button>
+    //                                       <button onclick="delete_comment(${num})" type="button" class="btn btn-outline-secondary">삭제</button>
+    //                                     </div>
+    //                                     <div class="modal" tabindex="-1" id ="chkbox">
+    //                                       <div class="modal-dialog">
+    //                                         <div class="modal-content">
+    //                                           <div class="modal-header">
+    //                                             <h5 class="modal-title">비밀번호 확인</h5>
+    //                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    //                                           </div>
+    //                                           <div class="modal-body">
+    //                                             <input id="chkidbox" type="text" class="form-control" placeholder="pw" aria-label="id"
+    //       aria-describedby="basic-addon1">
+    //                                           </div>
+    //                                           <div class="modal-footer">
+    //                                             <button onclick="close_box()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+    //                                             <button onclick="send_data(${num})" type="button" class="btn btn-primary">확인</button>
+    //                                           </div>
+    //                                         </div>
+    //                                       </div>
+    //                                     </div>
+    //                                   </div>
+    //                                 </div>`
+    //         $('#comment-list').append(temp_html)
+    //       }
+
+    //     });
+    //   })
+    // }
 
   </script>
 </head>
@@ -259,16 +264,16 @@
     </div>
     <div class="inputbox">
       <div class="input-group mb-3">
-        <span class="input-group-text" id="id">ID</span>
-        <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
+        <span class="input-group-text">ID</span>
+        <input id="id" type="text" class="form-control" placeholder="ID" aria-label="id"
           aria-describedby="basic-addon1">
         <span class="input-group-text" id="pw">PW</span>
-        <input id="pwbox" type="text" class="form-control" placeholder="Password" aria-label="pw"
+        <input id="password" type="text" class="form-control" placeholder="Password" aria-label="pw"
           aria-describedby="basic-addon1">
       </div>
       <div class="input-group mb-3">
-        <span class="input-group-text" id="comment">방명록</span>
-        <input id="combox" type="text" class="form-control" placeholder="자유롭게 글을 달아주세요." aria-label="comment"
+        <span class="input-group-text">방명록</span>
+        <input id="comment" type="text" class="form-control" placeholder="자유롭게 글을 달아주세요." aria-label="comment"
           aria-describedby="basic-addon1">
       </div>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -291,7 +296,7 @@
                 <button onclick="edit_comment($(snum))" type="button" class="btn btn-outline-secondary">수정</button>
                 <button onclick="delete_comment($(num))" type="button" class="btn btn-outline-secondary">삭제</button>
               </div>
-              <div class="modal" tabindex="-1" id ="chkbox">
+              <div class="modal" tabindex="-1" id="chkbox">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -300,7 +305,7 @@
                     </div>
                     <div class="modal-body">
                       <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
-          aria-describedby="basic-addon1">
+                        aria-describedby="basic-addon1">
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

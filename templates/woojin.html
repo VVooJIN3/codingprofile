@@ -22,27 +22,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
-
     <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
     <style>
         * {
             font-family: "Gowun Dodum", sans-serif;
         }
     </style>
 
+    <!--javascript-->
+    <script src="static/js/main.js"></script>
     <script>
         var page = 1; //페이지 전역변수 선언 (스크롤 페이지와 사이드바 페이지 통일 위함)
         $(document).ready(function () {
-
-
-            // 마우스 휠 이벤트 제거
+            // 섹션 이동을 위한 마우스 휠 이벤트 제거
             wheel_event()
-            guestbook_show()
+            show_comment()
         });
-
         function wheel_event() {
             window.addEventListener("wheel", function (e) {
                 e.preventDefault();
@@ -74,131 +71,11 @@
 
             })
         }
-
         function assignPageValue(pagenum) {
             page = pagenum;
-            // 이후 val 변수를 사용하여 원하는 작업 수행
-
-        }
-        function guestbook_show() {
-            let name = $('#name').text();
-            console.log(name);
-            fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
-                let rows = data['result']
-                commentIdx = 1;
-                $('#comment-list').empty()
-                rows.forEach(a => {
-                    let id = a['id'];
-                    let comment = a['comment'];
-                    let password = a['password'];
-                    let edittime = a['timestamp'];
-                    let objectId = a['_id']
-                    let temp_html = `
-                    <ul class="list-group list-group-flush">
-                        <div class="row">
-                            <div class="col">
-                                <label for="list-group-item" class="commentId" id="editid-${commentIdx}">${id}</label>
-                            </div>
-                            <div class="col">
-                                 <p id="edittime-${commentIdx}">${edittime}</p>
-                            </div>
-                            <div class="col">
-                                 <input type="text" class="form-control" id="editpassword-${commentIdx}" value="" placeholder="PW">
-                            </div>
-                        </div>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-10">
-                                    <input type="text" class="form-control-plaintext" id="editcomment-${commentIdx}" disabled
-                                        value="${comment}">
-                                </div>
-                                <div class="col-2">
-                                    <!-- 내용변경 -->
-                                    <div class="button-group">
-                                        <button id="edit-button-${commentIdx}" class="edit-button-${commentIdx}" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">✏️</button>
-                                        <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
-                                        <button id="delete-button-${commentIdx}" class="delete-button-${commentIdx}" onclick="deletebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">❌</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
-                    </ul>`
-                    $('#comment-list').append(temp_html)
-                    commentIdx++;
-                });
-            });
-        }
-        function savebutton_clicked() {
-            let name = $('#name').text(); //페이지 주인 이름
-            let comment = $('#comment').val();//댓글내용
-            let id = $('#id').val(); // 아이디 입력란의 값을 가져옴
-            let password = $('#password').val(); // 비밀번호 입력란의 값을 가져옴
-            console.log(name, comment, id, password)
-            let formData = new FormData();
-            formData.append("name_give", name);
-            formData.append("comment_give", comment);
-            formData.append("id_give", id);
-            formData.append("password_give", password);
-            formData.append()
-
-            fetch('/guestbook', { method: "POST", body: formData, }).then((response) => response.json()).then((data) => {
-                console.log(data)
-                alert(data["msg"]); // app.py(서버)로부터 댓글정보를 반환(return)받아 돌아오는 데이터
-                window.location.reload();
-                // 방명록 작성되었을 때 새로고침 하지 않고 방명록 값만 가져올 방법이 있는지 찾아보기
-
-            });
+            // 사이드바 클릭 시 page 값 변경
         }
 
-        function editbutton_clicked(button) {
-            // 클릭한 버튼의 id 가져오기위해 button을 인자값으로 받음
-            //button.value : <button>태그의 value($commentIdx) ex)방명록의 번호(1, 2, 3,...)
-            let objectId = button.getAttribute('data-id')
-            let targetpassword = $('#editpassword-' + button.value).val();                   //입력한 pw
-            console.log(objectId)
-
-            let formData = new FormData();
-            formData.append("objectId_give", objectId);
-            formData.append("targetpassword_give", targetpassword);
-            fetch('/guestbook/3', { method: "POST", body: formData, }).then((response) => response.json()).then((data) => {
-                // 해당 버튼에 대한 처리
-                if (data["result"] == "success") {
-                    var buttonId = $(this).attr('id');
-                    $('#edit-button-' + button.value).hide();
-                    $('#done-button-' + button.value).show();
-
-                    $('#editcomment-' + button.value).addClass('form-control');
-                    $('#editcomment-' + button.value).removeClass('form-control-plaintext');
-                    $('#editcomment-' + button.value).prop('disabled', false);
-
-                }
-                else if (data["result"] == "fail") {
-                    alert(data["msg"]);
-                }
-            });
-        }
-
-        function donebutton_clicked(button) {
-            let objectId = button.getAttribute('data-id')
-            let updatecomment = $('#editcomment-' + button.value).val()
-            let targetpassword = $('#editpassword-' + button.value).val();
-
-            let formData = new FormData();
-            formData.append("objectId_give", objectId);
-            formData.append("updatecomment_give", updatecomment)
-            formData.append("targetpassword_give", targetpassword);
-            fetch('/guestbook/3', { method: "PUT", body: formData, }).then((response) => response.json()).then((data) => {
-                // 해당 버튼에 대한 처리
-                if (data["result"] == "success") {
-                    alert(data["msg"]);
-                    window.location.reload();
-                }
-                else if (data["result"] == "fail") {
-                    alert(data["msg"]);
-                }
-            });
-        }
     </script>
 </head>
 
@@ -222,6 +99,7 @@
                 <p class="wordframe">MBTI :<span class="word">INFJ</span></p>
                 <p class="wordframe">취미 :<span class="word">✈️여행</span></p>
                 <p class="wordframe">장점 :<span class="word">공감해주기</span></p>
+                <p class="wordframe">협업스타일 :<span class="word">경청하고 포용하기</span></p>
                 <p class="wordframe">블로그 주소 : <a href="https://velog.io/@dnwls3525">조우진 velog</a></p>
                 <p class="wordframe">생년월일 : <span class="word">🎂1995.03.03</span></p>
                 <p class="wordframe">전화번호 : <span class="word">📞+(82)10-5543-0461</span></p>
@@ -344,7 +222,7 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <button onclick="savebutton_clicked()" type="button" id="writeButton">등록</button>
+                        <button onclick="save_comment()" type="button" id="writeButton">등록</button>
                     </div>
                 </div>
 

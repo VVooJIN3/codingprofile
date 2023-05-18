@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>Choi</title>
+    <meta property="og:title" content="코딩 프로필 choi" />
+    <meta property="og:description" content="방명록을 남겨주세요!" />
+    <meta property="og:image" content="https://drive.google.com/uc?id=1NuQ-fd6MEV-T5JNNTo7toa6fZcWIyKgD" />
+    <style>
+        body {
+            background-image: linear-gradient(0deg,
+                    rgba(143, 218, 232, 0.496),
+                    rgba(255, 127, 202, 0.89)),
+                url("https://www.photolibrary.jp/mhd7/img215/450-2011072918584299947.jpg");
+            background-position: center;
+            background-size: cover;
+        }
+        .title {
+            max-width: 1270px;
+            width: 100%;
+            padding: 100px 0 100px 0;
+            margin: auto;
+            text-align: center;
+            color: black;
+            font-size: 100px;
+        }
+        .title_image {
+            background-image: url("https://ca.slack-edge.com/T043597JK8V-U05501Q6DQ9-f84b9c7284c5-512");
+            background-position: center;
+            background-size: cover;
+            width: 50%;
+            height: 700px;
+            margin: 10px auto 20px auto;
+            border-radius: 300px;
+            float: right;
+        }
+        .story {
+            max-width: 1270px;
+            width: 100%;
+            padding: 100px 0 100px 0;
+            margin: auto;
+            text-align: left;
+            color: black;
+            font-size: 30px;
+        }
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 20px auto;
+            box-shadow: 0px 0px 3px 0px black;
+            padding: 20px;
+        }
+        .mypost>button {
+            margin-top: 15px;
+        }
+        .mycards {
+            width: 95%;
+            max-width: 500px;
+            margin: auto;
+        }
+        .mycards>.card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0px 0px 3px 0px black;
+        }
+        .love img {
+            margin-right: 7px;
+            margin-top: 10px;
+            border: 5px;
+            border-style: solid;
+            border-color: lightgray;
+            border-image-outset: 10px;
+            width: 120px;
+            height: 150px;
+            transition: all 0.3s ease-in-out;
+        }
+        /* 커서 올릴 시 이미지 크게(모든 이미지 파일에 적용) */
+        img:hover {
+            transform: scale(1.7);
+            -webkit-transform: scale(1.7);
+            /* 크롬 */
+            -moz-transform: scale(1.7);
+            /* 파이어폭스 */
+            -o-transform: scale(1.7);
+            /* 오페라 */
+            z-index: 1;
+            align-items: center;
+        }
+        .love p {
+            font-size: 55px;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+        }
+        /* for layout */
+        .contents1 {
+            width: 700px;
+        }
+        .contents2 {
+            width: 700px;
+            margin-left: 120px;
+            margin-top: 30px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            show_comment();
+        });
+        function save_comment() {
+            let name = $('#name').text();
+            let id = $('#id').val()
+            let comment = $('#comment').val()
+            let formData = new FormData();
+            formData.append("name_give", name);
+            formData.append("id_give", id);
+            formData.append("comment_give", comment);
+            fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+                alert(data["msg"]);
+                window.location.reload()
+            });
+        }
+        function show_comment() {
+            fetch('/guestbook').then((res) => res.json()).then((data) => {
+                let rows = data['result']
+                $('#comment-list').empty()
+                rows.forEach((a) => {
+                    let name = a['name']
+                    let id = a['id']
+                    let comment = a['comment']
+                    let temp_html = `<div class="card">
+                                        <div class="card-body">
+                                            <blockquote class="blockquote mb-0">
+                                                <p>${comment}</p>
+                                                <footer class="blockquote-footer">${id}</footer>
+                                            </blockquote>
+                                        </div>
+                                    </div>`
+                    $('#comment-list').append(temp_html)
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+    <a href="이동할 페이지의 주소(URL)#">Home</butten></a>
+    <div class="title">
+        <h3>안녕하세요!
+            </br>
+            <p id="name">최신혜</p>입니다.
+        </h3>
+        <div class="title_image"></div>
+    </div>
+    <div class="story">
+        <h4>MBTI: INFP
+            </br>나의 장점: 좋은 listener.
+            </br>협업 스타일: 주어진 일에 최선을 다함.
+            </br>TMI: 반려견 '짱아'있음. 현재 15살의 장수견이자 노견. 종은 하이브리드(=믹스견'말티츄')
+            </br>우리 팀의 약속
+            </br>1. 지각하지 않기
+            </br>2. 서로에게 인사 잘하기
+            </br>3. 문제 있을 때 팀원에게 바로 바로 연락하기!
+            </br>팀원들의 블로그 바로가기
+            </br><a href="https://velog.io/@tls9607">최신혜</butten></a>
+            </br><a href="https://velog.io/@dnwls3525">조우진</butten></a>
+            </br><a href="https://happiipark.tistory.com/">박행복</butten></a>
+            </br><a href="https://velog.io/@canseeit">이경원</butten></a>
+            </br><a href="https://rulltheindustry4.tistory.com/">박수빈</butten></a>
+        </h4>
+    </div>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    <div class="mypost">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="id" placeholder="닉네임">
+            <label for="floatingInput">닉네임</label>
+        </div>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="방명록을 남겨 주세요!" id="comment" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">방명록</label>
+        </div>
+        <button onclick="save_comment()" type="button" class="btn btn-dark">
+            방명록 남기기
+        </button>
+    </div>
+    <div class="mycards" id="comment-list">
+        <div class="card">
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>솟솟솟</p>
+                    <footer class="blockquote-footer">아리</footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>좋아요</p>
+                    <footer class="blockquote-footer">짱아</footer>
+                </blockquote>
+            </div>
+        </div>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <div>
+            <h1>내가 좋아하는 모든것</h1>
+            <section class="love">
+                <!-- 상단 텍스트 & 사진 -->
+                <div class="contents1">
+                    <p class="title"><span>여행, 커피,</span>&nbsp<span style="color: #2B3856;">선셋, 바다</span></p>
+                    <img src="https://drive.google.com/uc?id=1v-tGAetFkNSL9MH060Fx0Z_-pgxsbA8K">
+                    <img src="https://drive.google.com/uc?id=1qAmwf-HSeCfnFAbp1HkiQsQQad1nb_8c">
+                    <img src="https://drive.google.com/uc?id=1_I3KDWtnK6Y8d1XcpLoWNhZR5yhe-Fwq">
+                    <img src="https://drive.google.com/uc?id=1jfBvRFiFqVSnU5ncd7GFDPZE4oeXJA4o">
+                    <img src="https://drive.google.com/uc?id=1HIsg1YFZkonnIXjue0EdrFj-geZRV9vu">
+                    <img src="https://drive.google.com/uc?id=1fSNqT3zDKGfQwDTq3PcTuMbM0q9ZM13G">
+                    <img src="https://drive.google.com/uc?id=1HwZ5jF1PyTpHZlvtQEdhEHCEnc6r1Rpt">
+                    <img src="https://drive.google.com/uc?id=1OsB_bs-aNVIXwGNPEzFmMiXW8O8mI4iI">
+                </div>
+                <!-- 하단 텍스트 & 사진 -->
+                <div class="contents2">
+                    <p class="title"><span>동물친구들,</span>&nbsp<span style="color: #2B3856;">요리, 친구들</span></p>
+                    <img style="width: 150px;" class="photos"
+                        src="https://drive.google.com/uc?id=1s1mnhOX6Sx6e_APmNh8FT3rYfSsd8Pbu">
+                    <img src="https://drive.google.com/uc?id=1NuQ-fd6MEV-T5JNNTo7toa6fZcWIyKgD">
+                    <img src="https://drive.google.com/uc?id=1HtFf-pLiWKXV8sy__ggoLvwOYqcnrsvA">
+                    <img src="https://drive.google.com/uc?id=1FvQWmTSOqoUfqB-WOc46eij_7482LxjV">
+                    <img src="https://drive.google.com/uc?id=1GeIa46f-F2S_j9K7nSlMjCwWqDr1u3D2">
+                    <img src="https://drive.google.com/uc?id=1FvQWmTSOqoUfqB-WOc46eij_7482LxjV">
+                    <img src="https://drive.google.com/uc?id=1SYIl34bkYrROr2mpSks-OBuGTSSS_txC">
+                    <img src="https://drive.google.com/uc?id=1PxC_VDkTZT0cHwOOaPg8bVM9K_F2DFnc">
+                </div>
+            </section>
+        </div>
+</body>
+</html>
