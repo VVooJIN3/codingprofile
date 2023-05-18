@@ -21,9 +21,12 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
         rel="stylesheet" />
-    <!-- CSS -->
+
     <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
+
+    <!-- CSS -->
     <style>
         * {
             font-family: "Gowun Dodum", sans-serif;
@@ -142,7 +145,7 @@
             fetch('/guestbook', { method: "POST", body: formData, }).then((response) => response.json()).then((data) => {
                 console.log(data)
                 alert(data["msg"]); // app.py(서버)로부터 댓글정보를 반환(return)받아 돌아오는 데이터
-                window.location.reload(); 
+                window.location.reload();
                 // 방명록 작성되었을 때 새로고침 하지 않고 방명록 값만 가져올 방법이 있는지 찾아보기
 
             });
@@ -178,7 +181,7 @@
 
         function donebutton_clicked(button) {
             let objectId = button.getAttribute('data-id')
-            let updatecomment = $('#editcomment-'+button.value).val()
+            let updatecomment = $('#editcomment-' + button.value).val()
             let targetpassword = $('#editpassword-' + button.value).val();
 
             let formData = new FormData();
@@ -189,7 +192,7 @@
                 // 해당 버튼에 대한 처리
                 if (data["result"] == "success") {
                     alert(data["msg"]);
-                    window.location.reload(); 
+                    window.location.reload();
                 }
                 else if (data["result"] == "fail") {
                     alert(data["msg"]);

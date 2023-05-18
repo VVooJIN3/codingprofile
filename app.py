@@ -18,8 +18,15 @@ db = client.dbsparta
 @app.route('/')
 def home():
     #기본 페이지 불러오기
+   return render_template('index.html')
+
+@app.route('/woojin')
+def subinpage():
+    #멤버 수빈 페이지 불러오기
    return render_template('woojin.html')
-######woojin
+
+#########################################################################################################
+# woojin
 #방명록 불러오기 
 @app.route('/guestbook',methods=['GET'])
 def guestbook_get():
@@ -88,11 +95,13 @@ def guestbook_update():
             db.guestbook.update_one(target,{'$set':{'comment':comment_receive}})
 
             return jsonify({'result' : 'success', 'msg' : '수정이 완료되었습니다'})
-#####woojin
+###########################################################################
+# woojin
 
 
 
-##################subin
+############################################################################################################
+# subin
 @app.route('/subin')
 def subinpage():
     #멤버 수빈 페이지 불러오기
@@ -119,7 +128,8 @@ def guestbook_post():
 def guestbook_get():
     all_comments = list(db.guestbook.find({}, {'_id': False}))
     return jsonify({'result': all_comments})
-####subin
+#############################################################################################
+#subin
 
 
 if __name__ == '__main__':

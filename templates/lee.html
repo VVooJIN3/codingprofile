@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
+    <title>개인 프로필</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+
+        * {
+            font-family: "Gowun Batang", serif;
+        }
+
+        #grid {
+            font-size: 20px;
+            border: 5px solid pink;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 300px;
+        }
+
+        .mytxt {
+            text-align: center;
+        }
+
+        .img {
+            width: 200px;
+            height: 250px;
+        }
+
+        .mybtn {
+            height: 100%;
+        }
+
+        .guestbook {
+            width: 600px;
+        }
+
+        .guestbook>table {
+            margin: 40px 0;
+            font-size: 18px;
+        }
+
+        div {
+            border: 5px solid gray;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function save_order() {
+            let id = $('#id').val();
+            let password = $('#password').val();
+            let comment = $('#comment').val();
+            console.log("id:" + id + ", password:" + password + ", comment:" + comment);
+            let formData = new FormData();
+            formData.append("id_give", id);
+            formData.append("password_give", password);
+            formData.append("comment_give", comment);
+            fetch("/guestbook", { method: "POST", body: formData }).then(res => res.json()).then(data => {
+                alert(data["msg"])
+            });
+
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>이경원</h1>
+    </header>
+    <div id="grid">
+        <div class="mytxt">
+            <p>팀과 자신에 대한 설명</p>
+            <p>MBTI</p>
+            <p>자신의 장점</p>
+            <p>협업 스타일</p>
+            <p>블로그 주소: <a href="https://velog.io/@canseeit/">https://velog.io/@canseeit</a></p>
+        </div>
+        <div>
+            <img src="https://blog.kakaocdn.net/dn/bezjux/btqCX8fuOPX/6uq138en4osoKRq9rtbEG0/img.jpg" class="img">
+        </div>
+    </div>
+    <div class="guestbook">
+        <div class="user-input">
+            <input id="id" type="text" class="form-control" placeholder="ID">
+            <input id="password" type="text" class="form-control" placeholder="PASSWARD">
+        </div>
+        <textarea id="comment" class="form-control" rows="4" cols="80" placeholder="comment"></textarea>
+        <button onclick="save_order()" type="button" class="btn btn-warning mybtn">확인</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">PASSWORD</th>
+                <th scope="col">comment</th>
+            </tr>
+        </thead>
+    </table>
+    </div>
+    <img src="https://blog.kakaocdn.net/dn/bezjux/btqCX8fuOPX/6uq138en4osoKRq9rtbEG0/img.jpg" class="img">
+    본문 내용
+</body>
+
+</html>
