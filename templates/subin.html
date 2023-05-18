@@ -28,54 +28,55 @@
             font-family: "Noto Serif KR", serif;
         }
     </style>
+    <script src="static/js/main.js"></script>
     <script>
         $(document).ready(function () {
             // set_temp();
             show_comment();
         });
 
-        function save_comment() {
-
-            let name = $('#name').text()
-            let id = $('#id').val()
-            let password = $('#password').val()
-            let comment = $('#comment').val()
-
-            let formData = new FormData();
-            formData.append("name_give", name);
-            formData.append("id_give", id);
-            formData.append("password_give", password);
-            formData.append("comment_give", comment);
-
-            fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-                alert(data["msg"]);
-                window.location.reload()
-            });
-        }
-        function show_comment() {
-            fetch('/guestbook').then((res) => res.json()).then((data) => {
-                let rows = data['result']
-                $('#comment-list').empty()
-                rows.forEach((a) => {
-                    // let name = a['name']
-                    let id = a['id']
-                    // let password = a['password']
-                    let comment = a['comment']
-
-                    let temp_html = `<div class="card" style="margin-top: 0;">
-                                        <div class="card-body" style="height: 100%;">
-                                            <blockquote class="blockquote mb-0">
-                                                <p>${comment}</p>
-                                                <footer class="blockquote-footer">${id}</footer>
-                                            </blockquote>
-                                        </div>
-                                    </div>`
-                    $('#comment-list').append(temp_html)
-
-                })
-            })
-        }
     </script>
+    <!-- //     function save_comment() {
+
+    //         let name = $('#name').text()
+    //         let id = $('#id').val()
+    //         let password = $('#password').val()
+    //         let comment = $('#comment').val()
+
+    //         let formData = new FormData();
+    //         formData.append("name_give", name);
+    //         formData.append("id_give", id);
+    //         formData.append("password_give", password);
+    //         formData.append("comment_give", comment);
+
+    //         fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+    //             alert(data["msg"]);
+    //             window.location.reload()
+    //         });
+    //     }
+    //     function show_comment() {
+    //         fetch('/guestbook').then((res) => res.json()).then((data) => {
+    //             let rows = data['result']
+    //             $('#comment-list').empty()
+    //             rows.forEach((a) => {
+    //                 // let name = a['name']
+    //                 let id = a['id']
+    //                 // let password = a['password']
+    //                 let comment = a['comment']
+
+    //                 let temp_html = `<div class="card" style="margin-top: 0;">
+    //                                     <div class="card-body" style="height: 100%;">
+    //                                         <blockquote class="blockquote mb-0">
+    //                                             <p>${comment}</p>
+    //                                             <footer class="blockquote-footer">${id}</footer>
+    //                                         </blockquote>
+    //                                     </div>
+    //                                 </div>`
+    //                 $('#comment-list').append(temp_html)
+
+    //             })
+    //         })
+    //     } -->
 </head>
 
 <body>
