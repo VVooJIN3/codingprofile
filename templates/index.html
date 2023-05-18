@@ -21,7 +21,7 @@
             font-family: 'Gowun Dodum', sans-serif;
         }
 
-        
+
         .image {
             float: right;
             margin-top: 30px;
@@ -41,6 +41,7 @@
             /* 마진 값이 안넣어져서 float를 이용해서 오른쪽으로 이동시켰어요*/
 
         }
+
         .comment {
             float: left;
             margin-top: 30px;
@@ -83,6 +84,18 @@
         .mybtns>button {
             margin-right: 10px;
         }
+/* 페이지 이동 버튼 */
+        button, a {
+            font-size: 15px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid #333;
+            padding: 5px;
+            background: #e2e2e2;
+            border-radius: 5px;
+        }
+
     </style>
     <script>
         $(document).ready(function () {
@@ -144,13 +157,30 @@
         function close_box() {
             $('#post-box').hide()
         }
+// *기능 구현 (window.open에 _blank를 붙이면 팝업창(새 창) 열기를 할 수 있습니다.)*
+// *사실 잘 작동할지 모르겠어요. 어제 확인하셨을 때 놀라셨죠?...죄송해요ㅠ저도 놀랐어요 넣은 줄 알았는데 메모장에만 적어넣고 그냥 드렸네요...ㅜ
+        function move1() {
+            window.open('신혜님의 페이지의 url을 넣어주세요', '', '_blank');
+        }
+        function move2() {
+            window.open('우진님의 페이지의 url을 넣어주세요', '', '_blank');
+        }
+        function move3() {
+            window.open('수빈님의 페이지의 url을 넣어주세요', '', '_blank');
+        }
+        function move4() {
+            window.open('경원님의 페이지의 url을 넣어주세요', '', '_blank');
+        }
+        function move5() {
+            window.open('행복님의 페이지의 url을 넣어주세요', '', '_blank');
+        }
     </script>
 </head>
 
 <body>
     <div>
         <div class="image" src="'https://img.kr.news.samsung.com/kr/wp-content/uploads/2019/09/190910Clab4.jpg"></div>
-        <div class="comment"> 
+        <div class="comment">
 
         </div>
     </div>
@@ -230,6 +260,14 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- 버튼은 밑에 예시로 아무렇게 배치해놓았습니다. -->
+    <div>
+        <button onclick="move1()">최신혜</button>
+        <button onclick="move2()">조우진</button>
+        <button onclick="move3()">박수빈</button>
+        <button onclick="move4()">이경원</button>
+        <button onclick="move5()">박행복</button>
     </div>
 </body>
 
