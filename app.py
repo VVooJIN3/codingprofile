@@ -2,8 +2,6 @@
 from flask import Flask, render_template, request, jsonify
 
 from datetime import datetime,timedelta
-=======
->>>>>>> lee
 app = Flask(__name__)
 
 from pymongo import MongoClient
@@ -24,7 +22,6 @@ db = client.dbsparta
 def home():
     return render_template('kyeongwon.html')
 
-<<<<<<< HEAD
 @app.route('/woojin')
 def subinpage():
     #멤버 수빈 페이지 불러오기
