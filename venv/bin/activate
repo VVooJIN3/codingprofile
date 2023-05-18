@@ -38,10 +38,14 @@ deactivate () {
 deactivate nondestructive
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 VIRTUAL_ENV="/Users/subin/project/codingprofile/venv"
 =======
 VIRTUAL_ENV="/Users/canseeit/Desktop/projects/codingprofile/venv"
 >>>>>>> lee
+=======
+VIRTUAL_ENV="/Users/baghaengbog/Desktop/sprata/projects/codingprofile/venv"
+>>>>>>> happy
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

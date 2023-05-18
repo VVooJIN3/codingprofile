@@ -30,10 +30,14 @@ end
 deactivate nondestructive
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 set -gx VIRTUAL_ENV "/Users/subin/project/codingprofile/venv"
 =======
 set -gx VIRTUAL_ENV "/Users/canseeit/Desktop/projects/codingprofile/venv"
 >>>>>>> lee
+=======
+set -gx VIRTUAL_ENV "/Users/baghaengbog/Desktop/sprata/projects/codingprofile/venv"
+>>>>>>> happy
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -9,10 +9,14 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 deactivate nondestructive
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 setenv VIRTUAL_ENV "/Users/subin/project/codingprofile/venv"
 =======
 setenv VIRTUAL_ENV "/Users/canseeit/Desktop/projects/codingprofile/venv"
 >>>>>>> lee
+=======
+setenv VIRTUAL_ENV "/Users/baghaengbog/Desktop/sprata/projects/codingprofile/venv"
+>>>>>>> happy
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"

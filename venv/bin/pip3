@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #!/Users/subin/project/codingprofile/venv/bin/python3
 =======
 #!/Users/canseeit/Desktop/projects/codingprofile/venv/bin/python3
 >>>>>>> lee
+=======
+#!/Users/baghaengbog/Desktop/sprata/projects/codingprofile/venv/bin/python3
+>>>>>>> happy
 # -*- coding: utf-8 -*-
 import re
 import sys
