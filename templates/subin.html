@@ -30,7 +30,7 @@
     </style>
 
 
-    <!--javascript-->
+					 
     <script src="static/js/main.js"></script>
     <script>
         $(document).ready(function () {
@@ -39,12 +39,53 @@
         });
 
     </script>
+    <!-- //     function save_comment() {
+
+    //         let name = $('#name').text()
+    //         let id = $('#id').val()
+    //         let password = $('#password').val()
+    //         let comment = $('#comment').val()
+
+    //         let formData = new FormData();
+    //         formData.append("name_give", name);
+    //         formData.append("id_give", id);
+    //         formData.append("password_give", password);
+    //         formData.append("comment_give", comment);
+
+    //         fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+    //             alert(data["msg"]);
+    //             window.location.reload()
+    //         });
+    //     }
+    //     function show_comment() {
+    //         fetch('/guestbook').then((res) => res.json()).then((data) => {
+    //             let rows = data['result']
+    //             $('#comment-list').empty()
+    //             rows.forEach((a) => {
+    //                 // let name = a['name']
+    //                 let id = a['id']
+    //                 // let password = a['password']
+    //                 let comment = a['comment']
+
+    //                 let temp_html = `<div class="card" style="margin-top: 0;">
+    //                                     <div class="card-body" style="height: 100%;">
+    //                                         <blockquote class="blockquote mb-0">
+    //                                             <p>${comment}</p>
+    //                                             <footer class="blockquote-footer">${id}</footer>
+    //                                         </blockquote>
+    //                                     </div>
+    //                                 </div>`
+    //                 $('#comment-list').append(temp_html)
+
+    //             })
+    //         })
+    //     } -->
 </head>
 
 <body>
     <div class="bg">
         <h1>수빈의 TMI</h1>
-        <button onclick="window.location.href='홈페이지 주소'" style="position: absolute; top: 10px; right: 10px;"
+        <button onclick="window.location.href='/'" style="position: absolute; top: 10px; right: 10px;"
             type="button" class="btn btn-light">HOME</button>
     </div>
     <div class="tmi" style="display: flex; justify-content: space-between;">
@@ -158,28 +199,28 @@
     </div>
     <hr>
     </hr>
-    <!-- <h4 style="margin-left: 20px" ;>Gallery</h4>
-    <div style="margin-bottom: 20px;">
-        <div class="dog" style="margin: 20px 20px 20px 20px;">
-            <img src="/static/image/IMG_1671.JPG" width="300">
-            <img src="/static/image/IMG_1672.JPG" width="300">
-            <img src="/static/image/IMG_1673.JPG" width="300">
-        </div>
-        <div class="me" style="margin: 5px 20px 20px 20px; display: flex; justify-content: center;">
-            <img src="/static/image/IMG_2324.jpeg" height="300" style="padding-right: 5px">
-            <img src="/static/image/IMG_5482.JPG" height="300">
-        </div>
-        <div class="flower" style="margin: 5px 20px 20px 20px; display: inline-block; float: right;">
-            <img src="/static/image/IMG_5570.jpeg" width="300">
-            <img src="/static/image/IMG_5575.jpeg" width="300">
-            <img src="/static/image/IMG_5581.jpeg" width="300">
-        </div>
-    </div><br> -->
+
+									  
+															  
+															  
+															  
+															  
+			  
+																									
+																						   
+															   
+			  
+																									 
+															   
+															   
+															   
+			  
+				  
     <h4 style="margin-left: 20px" ;>Gallery</h4>
     <div class="gallerylist">
         <div>
             <ul style="display: flex; justify-content: flex-start; align-items: center;">
-                 <li>
+                <li>
                     <a href="">
                         <div class="screen">
                             <div class="top">우리집 강아지</div>
@@ -201,7 +242,7 @@
                 <li>
                     <a href="">
                         <div class="screen">
-                            <div class="top">저희집에서</div>
+                            <div class="top">우리집에서</div>
                             <div class="bottom">저를 제일 싫어해요</div>
                             <img src="/static/image/IMG_1673.JPG" width="300">
                         </div>
@@ -231,6 +272,15 @@
 
                     </a>
                 </li>
+                <li>
+                    <a href="">
+                        <div class="screen">
+                            <div class="top">코딩은 처음이라</div>
+                            <div class="bottom">아직 무슨 소리인지 모르겠어요</div>
+                            <img src="/static/image/IMG_0549.JPG" width="300">
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
         <div>
@@ -238,8 +288,40 @@
                 <li>
                     <a href="">
                         <div class="screen">
-                            <div class="top">사진을</div>
-                            <div class="bottom">못 찍는 편이에요</div>
+                            <div class="top">차근 차근</div>
+                            <div class="bottom">성장하는 개발자가 되겠습니다</div>
+                            <img src="/static/image/IMG_3788.JPG" height="300">
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="screen">
+                            <div class="top">긍정파워</div>
+                            <div class="bottom">에러는 웃으면서 이겨내기</div>
+                            <img src="/static/image/GOPR3004.JPG" height="300">
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <div class="screen">
+                            <div class="top">오늘보다</div>
+                            <div class="bottom">내일이 더 기대되는 개발자로</div>
+                            <img src="/static/image/IMG_4797.jpeg" height="300">
+                        </div>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <ul style="display: flex; justify-content: flex-end; align-items: center;">
+                <li>
+                    <a href="">
+                        <div class="screen">
+                            <div class="top">주 80시간</div>
+                            <div class="bottom">채워볼게요</div>
                             <img src="/static/image/IMG_5583.jpeg" width="300">
                         </div>
 
@@ -248,8 +330,8 @@
                 <li>
                     <a href="">
                         <div class="screen">
-                            <div class="top">사실 제 소개에</div>
-                            <div class="bottom">많이 서툰 편이에요</div>
+                            <div class="top">뱉은 말은</div>
+                            <div class="bottom">지킵니다</div>
                             <img src="/static/image/IMG_5570.jpeg" width="300">
                         </div>
 

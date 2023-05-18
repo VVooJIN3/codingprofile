@@ -29,7 +29,7 @@ function show_comment() {
                                 <label for="list-group-item" class="commentId" id="editid-${commentIdx}">${id}</label>
                             </div>
                             <div class="col">
-                                 <input type="text" class="form-control" id="editpassword-${commentIdx}" value="" placeholder="PW">
+                                 <input type="password" class="form-control" id="editpassword-${commentIdx}" value="" placeholder="PW">
                             </div>
                         </div>
                         <li class="list-group-item">
@@ -68,35 +68,26 @@ function show_comment() {
                     // let edittime = a['timestamp'];
                     let objectId = a['_id']
 
-                    let temp_html = `<ul class="list-group list-group-flush">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="list-group-item" class="commentId" id="editid-${commentIdx}">${id}</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" id="editpassword-${commentIdx}" value="" placeholder="PW">
-                                            </div>
-                                        </div>
-                                        <li class="list-group-item">
-                                            <div class="row">
-                                                <div class="col-10">
-                                                    <input type="text" class="form-control-plaintext" id="editcomment-${commentIdx}" disabled
-                                                        value="${comment}">
-                                                </div>
-                                                <div class="col-2">
-                                                    <!-- 내용변경 -->
-                                                    <div class="button-group">
-                                                        <button id="edit-button-${commentIdx}" class="edit-button-${commentIdx}" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">✏️</button>
-                                                        <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
-                                                        <button id="delete-button-${commentIdx}" class="delete-button-${commentIdx}" onclick="deletebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">❌</button>
-                                                    </div>
-                        
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>`
+                    let temp_html = `                    <div class="card">
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                        <footer class="blockquote-footer">${id}</footer>
+                        <input type="text" class="form-control-plaintext" id="editcomment-${commentIdx}" disabled
+                        value="${comment}">
+                            <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="editpassword-${commentIdx}" placeholder="비밀번호">
+                            <label for="floatingInput" type="password">비밀번호</label>
+                            <!-- 내용변경 -->
+                            <div class="button-group">
+                                <button id="edit-button-${commentIdx}" class="edit-button-${commentIdx}" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">✏️</button>
+                                <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
+                                <button id="delete-button-${commentIdx}" class="delete-button-${commentIdx}" onclick="deletebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">❌</button>
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>`
                     $('#comment-list').append(temp_html)
-
+                    commentIdx++;
                 })
             });
             break;
@@ -105,7 +96,7 @@ function show_comment() {
             fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
                 let rows = data['result']
                 $('#comment-list').empty()
-                let commentIdx=1;
+                let commentIdx = 1;
                 rows.forEach(a => {
 
                     let name = a['name']
@@ -119,53 +110,100 @@ function show_comment() {
                         let temp_html = `<div class="card">
                                             <div class="card-body">
                                                 <blockquote class="blockquote mb-0">
-                                                <p>${comment}</p>
-                                                <footer class="blockquote-footer">${id}</footer>
+                                                <footer class="blockquote-footer" id="id">${id}</footer>
+                                                <p id="comment"><input type="text" class="form-control-plaintext" style="width:400px;" id="editcomment-${commentIdx}" disabled
+                                                value="${comment}"></p>
                                                 </blockquote>
                                                 <div class="d-flex justify-content-end">
-                                                <button onclick="editbutton_clicked(this)" type="button" class="btn btn-outline-secondary" value="${commentIdx}" data-id="${objectId}"   >수정</button>
-                                                <button onclick="editbutton_clicked(this)" type="button" class="btn btn-outline-secondary" style="display:none;"value="${commentIdx}" data-id="${objectId}"  >완료</button>
-                                                <button onclick="deletebutton_clicked(this))" type="button" class="btn btn-outline-secondary"value="${commentIdx}" data-id="${objectId}" >삭제</button>
+                                                <button id="edit-button-${commentIdx}" type="button" class="btn btn-outline-secondary" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">수정</button>
+                                                <button style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
+                                                <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
+                                                <button onclick="deletebutton_clicked(this)" type="button" class="btn btn-outline-secondary" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">삭제</button>
                                                 </div>
                                                 <div class="input-group flex-nowrap">
                                                 <span class="input-group-text" id="addon-wrapping">PW</span>
-                                                <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+                                                <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" id="editpassword-${commentIdx}">
                                                 </div>
                                             </div>
                                         </div>`
                         $('#comment-list').append(temp_html)
+                        commentIdx++;
                     }
 
                 })
             });
             break;
 
+        case '최신혜':
+            fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
+                let rows = data['result']
+                commentIdx = 1;
+                $('#comment-list').empty()
+                rows.forEach(a => {
+                    let id = a['id'];
+                    let comment = a['comment'];
+                    let password = a['password'];
+                    // let edittime = a['timestamp'];
+                    let objectId = a['_id']
+                    let temp_html = `
+                    <div class="card">
+                                         <div class="card-body">
+                                             <blockquote class="blockquote mb-0">
+                                             <footer class="blockquote-footer" id="id">${id}</footer>
+                                             <input type="text" class="form-control-plaintext" id="editcomment-${commentIdx}" disabled
+                                             value="${comment}">
+
+                                                 <div class="form-floating mb-3">
+                                                 <input type="text" class="form-control" type="password" id="editpassword-${commentIdx}" placeholder="비밀번호">
+                                                 <label for="floatingInput">비밀번호</label>
+                                                 <!-- 내용변경 -->
+                                                 <div class="button-group">
+                                                     <button id="edit-button-${commentIdx}" class="edit-button-${commentIdx}" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">✏️</button>
+                                                     <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
+                                                     <button id="delete-button-${commentIdx}" class="delete-button-${commentIdx}" onclick="deletebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">❌</button>
+                                                 </div>
+                                             </blockquote>
+                                         </div>
+                                     </div>`
+                    $('#comment-list').append(temp_html)
+                    commentIdx++;
+                });
+            });
+            break;
+            case '이경원':
+                fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
+                    let rows = data['result']
+                    commentIdx = 1;
+                    $('#comment-list').empty()
+                    rows.forEach(a => {
+                        let id = a['id'];
+                        let comment = a['comment'];
+                        let password = a['password'];
+
+                        let objectId = a['_id']
+
+                        let temp_html = `<tr>
+                        <td>${id}</td>
+                        <td><input type="text" class="form-control-plaintext" style="width:500px;" id="editcomment-${commentIdx}" disabled
+                                             value="${comment}">
+                        <input type="password" class="form-control" id="editpassword-${commentIdx}" placeholder="비밀번호" style="width:200px;">
+                            <td>
+                                <button id="edit-button-${commentIdx}" class="edit-button-${commentIdx}" onclick="editbutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">✏️</button>
+                                <button id="done-button-${commentIdx}" style="display: none;" class="done-button-${commentIdx}" onclick="donebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">완료</button>
+                                <button id="delete-button-${commentIdx}" class="delete-button-${commentIdx}" onclick="deletebutton_clicked(this)" value="${commentIdx}" data-id="${objectId}">❌</button>
+                            </td>
+                
+                    </tr>
+                   `
+                        $('#comment-list').append(temp_html)
+                        commentIdx++;
+                    })
+                });
 
     }
 
 }
 
-function savebutton_clicked() {
-    let name = $('#name').text(); //페이지 주인 이름
-    let comment = $('#comment').val();//댓글내용
-    let id = $('#id').val(); // 아이디 입력란의 값을 가져옴
-    let password = $('#password').val(); // 비밀번호 입력란의 값을 가져옴
-    console.log(name, comment, id, password)
-    let formData = new FormData();
-    formData.append("name_give", name);
-    formData.append("comment_give", comment);
-    formData.append("id_give", id);
-    formData.append("password_give", password);
-    formData.append()
-
-    fetch('/guestbook', { method: "POST", body: formData, }).then((response) => response.json()).then((data) => {
-        console.log(data)
-        alert(data["msg"]); // app.py(서버)로부터 댓글정보를 반환(return)받아 돌아오는 데이터
-        window.location.reload();
-        // 방명록 작성되었을 때 새로고침 하지 않고 방명록 값만 가져올 방법이 있는지 찾아보기
-
-    });
-}
 
 function editbutton_clicked(button) {
     // 클릭한 버튼의 id 가져오기위해 button을 인자값으로 받음
@@ -272,7 +310,7 @@ function save_comment() {
 //             // let password = a['password']
 //             let comment = a['comment']
 
-//             let temp_html = `<div class="card" style="margin-top: 0;">
+//             let temp_html = `< div class="card" style = "margin-top: 0;" >
 //                                 <div class="card-body" style="height: 100%;">
 //                                     <blockquote class="blockquote mb-0">
 //                                         <p>${comment}</p>

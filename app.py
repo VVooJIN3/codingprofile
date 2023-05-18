@@ -1,3 +1,11 @@
+# 역할 분담
+# 최신혜 : 페이지 이동
+# 박행복 : 방명록 조회
+# 이경원 : 방명록 작성
+# 조우진 : 방명록 수정/삭제
+# 박수빈 : 메인 페이지 프론트엔드
+# 공통 : 개인 프로필 프론트엔드
+
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime,timedelta
 app = Flask(__name__)
@@ -40,9 +48,14 @@ def happypage():
    return render_template('happy.html')
 
 @app.route('/lee')  
-def leepage():
+def kyeongwonpage():
     #멤버 경원 페이지 불러오기
-   return render_template('lee.html')
+   return render_template('kyeongwon.html')
+
+@app.route('/choi')  
+def choipage():
+    #멤버 경원 페이지 불러오기
+   return render_template('choi.html')
 
 
 #########################################################################################################
@@ -51,8 +64,16 @@ def leepage():
 #방명록 삭제하기
 @app.route('/guestbook/2',methods=["DELETE"])
 def guestbook_delete():
-    #방명록 삭제기능
-   return render_template('woojin.html')
+    objectId_receive = request.form['objectId_give'] #db 키(_id)값
+    targetpassword_receive = request.form['targetpassword_give']
+
+    target = db.guestbook.find_one({'_id':ObjectId(objectId_receive)}) #댓글 테이블에 (_id)값을 가진 아이디와 댓글이 있는지 확인
+    if target['password'] != targetpassword_receive: #입력한 비밀번호가 다를 때
+        return jsonify({'result':'fail', 'msg': '비밀번호가 틀립니다.'})
+    else: # 입력한 비밀번호가 맞을 때
+        db.guestbook.delete_one(target)
+        return jsonify({'result':'success', 'msg': '삭제가 완료되었습니다.'})    
+
 
 #방명록 수정하기
 @app.route('/guestbook/3',methods=["POST","PUT"])
@@ -247,10 +268,6 @@ def guestbook_get():
 #     for i in b:
 #         print(i)
 
-
-    
-
-    
     
 #     # db.guestbook.delete_one({'num': int(delete_receive)})
 #     return jsonify({'msg':'본인 확인 완료!'})

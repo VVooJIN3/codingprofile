@@ -18,12 +18,12 @@
     <meta property="og:title" content="코딩 프로필" />
     <meta property="og:description" content="조우진" />
     <meta property="og:image" content="https://drive.google.com/uc?id=156cEeiEXWM2XgPSRI3lBKWe4K1Bro_0Q" />
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
         rel="stylesheet" />
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/stylewoojin.css">
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
     <style>
         * {
@@ -40,6 +40,9 @@
             wheel_event()
             show_comment()
         });
+
+
+
         function wheel_event() {
             window.addEventListener("wheel", function (e) {
                 e.preventDefault();
@@ -73,20 +76,20 @@
         }
         function assignPageValue(pagenum) {
             page = pagenum;
-            // 사이드바 클릭 시 page 값 변경
+
         }
 
     </script>
 </head>
 
 <body>
-
-
     <div class="sidebar">
         <a href="#s1" onclick="assignPageValue(1)" style="font-size:2.0em; text-decoration:none;">🏠</a>
-        <a href="#s2" onclick="assignPageValue(2)" style="font-size:2.0em; text-decoration:none;">💬</a>
         <a href="#s3" onclick="assignPageValue(3)" style="font-size:2.0em; text-decoration:none;">✈️</a>
         <a href="#s4" onclick="assignPageValue(4)" style="font-size:2.0em; text-decoration:none;">📹</a>
+        <a href="#s5" onclick="assignPageValue(5)" style="font-size:2.0em; text-decoration:none;">🎓</a>
+        <a href="#s2" onclick="assignPageValue(2)" style="font-size:2.0em; text-decoration:none;">💬</a>
+        <a href="/" style="font-size:2.0em; text-decoration:none;">🔙</a>
     </div>
 
     <section class="section" id="s1">
@@ -121,10 +124,70 @@
 
     </section>
 
+    </section>
+    <section class="section" id="s3">
+        <div class="myprofile">
+            <h1 style="text-align:center; ">새로움을 발굴하고</h1>
+        </div>
+        <div class="imagecards">
+            <div class="imagecard">
+                <img src="/static/image/tripimage1.jpg" width="444px" height="444px">
+            </div>
+            <div class="imagecard">
+                <img src="/static/image/tripimage3.jpg" width="888px" height="444px">
+            </div>
+            <div class="imagecard">
+                <img src="/static/image/tripimage2.jpg" width="333px" height="444px">
+            </div>
+        </div>
+    </section>
+    <section class="section" id="s4">
+        <div class="myprofile">
+            <h1 style="text-align:center; ">도전을 거듭해가며</h1>
+        </div>
+        <div class="video-wrapper">
+            <video width="313px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo1.mp4" type="" video/mp4">
+            </video>
+            <video width="400px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo3.mp4" type="" video/mp4>
+            </video>
+            <video width="400px" height="700px" class="videocard" muted autoplay loop>
+                <source src="static/video/tripvideo2.mp4" type="" video/mp4>
+            </video>
+            
+        </div>
+
+    </section>
+
+    <section class="section" id="s5">
+        <div class="myprofile">
+            <h1 style="text-align:center;">끊임없이 성장해나가겠습니다.</h1>
+        </div>
+        <div>
+            <div class="contents1">
+                <img class="graduate" src="/static/image/license1.jpg">
+                <img class="graduate" src="/static/image/license2.jpg">
+                <img class="graduate" src="/static/image/license3.jpg">
+
+
+
+            </div>
+            <div class="contents2">
+                <img class="graduate" src="/static/image/license4.jpg">
+                <img class="graduate" src="/static/image/license5.jpg">
+                <img class="graduate" src="/static/image/contest1.jpg">
+                <img class="graduate" src="/static/image/contest2.jpg">
+            </div>
+
+    </section>
+
     <section class="section" id="s2">
-        <h1>section 2</h1>
-        <a href="#">top</a>
-        <img src="/static/image/title.svg" alt="title">
+        <div class="myprofile">
+            <h1 style="text-align:center; ">방명록 작성하기</h1>
+        </div>
+        <img src="/static/image/title.svg" alt="title" style="width:500px; height:500px;">
+
         <div class="container">
             <div class="card" id="comment-list">
                 <ul class="list-group list-group-flush">
@@ -186,19 +249,7 @@
                 </ul>
             </div>
             <nav aria-label="...">
-                <ul class="pagination" id="pagination">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">1</span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
+
             </nav>
         </div>
         <div class="guestbook">
@@ -229,35 +280,6 @@
             </div>
 
         </div>
-
-
-    </section>
-    <section class="section" id="s3">
-        <div class="imagecard">
-            <img src="/static/image/tripimage1.jpg" width="444px" height="444px">
-        </div>
-        <div class="imagecard">
-            <img src="/static/image/tripimage3.jpg" width="888px" height="444px">
-        </div>
-        <div class="imagecard">
-            <img src="/static/image/tripimage2.jpg" width="333px" height="444px">
-        </div>
-    </section>
-    <section class="section" id="s4">
-        <div class="video-wrapper">
-            <video width="313px" height="700px" class="videocard" muted autoplay loop>
-                <source src="static/video/tripvideo1.mp4" type="" video/mp4">
-            </video>
-            <video width="400px" height="700px" class="videocard" muted autoplay loop>
-                <source src="static/video/tripvideo3.mp4" type="" video/mp4>
-            </video>
-            <video width="400px" height="700px" class="videocard" muted autoplay loop>
-                <source src="static/video/tripvideo2.mp4" type="" video/mp4>
-            </video>
-
-        </div>
-
-    </section>
 
 
 </body>

@@ -104,47 +104,49 @@
             margin-top: 30px;
         }
     </style>
+    <!--javascript-->
+    <script src="static/js/main.js"></script>
     <script>
         $(document).ready(function () {
             show_comment();
         });
-        function save_comment() {
-            let name = $('#name').text();
-            let id = $('#id').val()
-            let comment = $('#comment').val()
-            let formData = new FormData();
-            formData.append("name_give", name);
-            formData.append("id_give", id);
-            formData.append("comment_give", comment);
-            fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-                alert(data["msg"]);
-                window.location.reload()
-            });
-        }
-        function show_comment() {
-            fetch('/guestbook').then((res) => res.json()).then((data) => {
-                let rows = data['result']
-                $('#comment-list').empty()
-                rows.forEach((a) => {
-                    let name = a['name']
-                    let id = a['id']
-                    let comment = a['comment']
-                    let temp_html = `<div class="card">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote mb-0">
-                                                <p>${comment}</p>
-                                                <footer class="blockquote-footer">${id}</footer>
-                                            </blockquote>
-                                        </div>
-                                    </div>`
-                    $('#comment-list').append(temp_html)
-                })
-            })
-        }
+        // function save_comment() {
+        //     let name = $('#name').text();
+        //     let id = $('#id').val()
+        //     let comment = $('#comment').val()
+        //     let formData = new FormData();
+        //     formData.append("name_give", name);
+        //     formData.append("id_give", id);
+        //     formData.append("comment_give", comment);
+        //     fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
+        //         alert(data["msg"]);
+        //         window.location.reload()
+        //     });
+        // }
+        // function show_comment() {
+        //     fetch('/guestbook').then((res) => res.json()).then((data) => {
+        //         let rows = data['result']
+        //         $('#comment-list').empty()
+        //         rows.forEach((a) => {
+        //             let name = a['name']
+        //             let id = a['id']
+        //             let comment = a['comment']
+        //             let temp_html = `<div class="card">
+        //                                 <div class="card-body">
+        //                                     <blockquote class="blockquote mb-0">
+        //                                         <p>${comment}</p>
+        //                                         <footer class="blockquote-footer">${id}</footer>
+        //                                     </blockquote>
+        //                                 </div>
+        //                             </div>`
+        //             $('#comment-list').append(temp_html)
+        //         })
+        //     })
+        // }
     </script>
 </head>
 <body>
-    <a href="이동할 페이지의 주소(URL)#">Home</butten></a>
+    <a href="/">Home</butten></a>
     <div class="title">
         <h3>안녕하세요!
             </br>
@@ -169,17 +171,47 @@
             </br><a href="https://rulltheindustry4.tistory.com/">박수빈</butten></a>
         </h4>
     </div>
-    </br>
-    </br>
-    </br>
-    </br>
-    </br>
-    </br>
-    </br>
+  
+    <div>
+        <h1>내가 좋아하는 모든것</h1>
+        <section class="love">
+            <!-- 상단 텍스트 & 사진 -->
+            <div class="contents1">
+                <p class="title"><span>여행, 커피,</span>&nbsp<span style="color: #2B3856;">선셋, 바다</span></p>
+                <img src="https://drive.google.com/uc?id=1v-tGAetFkNSL9MH060Fx0Z_-pgxsbA8K">
+                <img src="https://drive.google.com/uc?id=1qAmwf-HSeCfnFAbp1HkiQsQQad1nb_8c">
+                <img src="https://drive.google.com/uc?id=1_I3KDWtnK6Y8d1XcpLoWNhZR5yhe-Fwq">
+                <img src="https://drive.google.com/uc?id=1jfBvRFiFqVSnU5ncd7GFDPZE4oeXJA4o">
+                <img src="https://drive.google.com/uc?id=1HIsg1YFZkonnIXjue0EdrFj-geZRV9vu">
+                <img src="https://drive.google.com/uc?id=1fSNqT3zDKGfQwDTq3PcTuMbM0q9ZM13G">
+                <img src="https://drive.google.com/uc?id=1HwZ5jF1PyTpHZlvtQEdhEHCEnc6r1Rpt">
+                <img src="https://drive.google.com/uc?id=1OsB_bs-aNVIXwGNPEzFmMiXW8O8mI4iI">
+
+            </div>
+            <!-- 하단 텍스트 & 사진 -->
+            <div class="contents2">
+                <p class="title"><span>동물친구들,</span>&nbsp<span style="color: #2B3856;">요리, 친구들</span></p>
+                <img style="width: 150px;" class="photos"
+                    src="https://drive.google.com/uc?id=1s1mnhOX6Sx6e_APmNh8FT3rYfSsd8Pbu">
+                <img src="https://drive.google.com/uc?id=1NuQ-fd6MEV-T5JNNTo7toa6fZcWIyKgD">
+                <img src="https://drive.google.com/uc?id=1HtFf-pLiWKXV8sy__ggoLvwOYqcnrsvA">
+                <img src="https://drive.google.com/uc?id=1FvQWmTSOqoUfqB-WOc46eij_7482LxjV">
+                <img src="https://drive.google.com/uc?id=1GeIa46f-F2S_j9K7nSlMjCwWqDr1u3D2">
+                <img src="https://drive.google.com/uc?id=1FvQWmTSOqoUfqB-WOc46eij_7482LxjV">
+                <img src="https://drive.google.com/uc?id=1SYIl34bkYrROr2mpSks-OBuGTSSS_txC">
+                <img src="https://drive.google.com/uc?id=1PxC_VDkTZT0cHwOOaPg8bVM9K_F2DFnc">
+
+            </div>
+        </section>
+    </div>
     <div class="mypost">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="id" placeholder="닉네임">
             <label for="floatingInput">닉네임</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" placeholder="비밀번호">
+            <label for="floatingInput">비밀번호</label>
         </div>
         <div class="form-floating">
             <textarea class="form-control" placeholder="방명록을 남겨 주세요!" id="comment" style="height: 100px"></textarea>
@@ -206,42 +238,6 @@
                 </blockquote>
             </div>
         </div>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        <div>
-            <h1>내가 좋아하는 모든것</h1>
-            <section class="love">
-                <!-- 상단 텍스트 & 사진 -->
-                <div class="contents1">
-                    <p class="title"><span>여행, 커피,</span>&nbsp<span style="color: #2B3856;">선셋, 바다</span></p>
-                    <img src="https://drive.google.com/uc?id=1v-tGAetFkNSL9MH060Fx0Z_-pgxsbA8K">
-                    <img src="https://drive.google.com/uc?id=1qAmwf-HSeCfnFAbp1HkiQsQQad1nb_8c">
-                    <img src="https://drive.google.com/uc?id=1_I3KDWtnK6Y8d1XcpLoWNhZR5yhe-Fwq">
-                    <img src="https://drive.google.com/uc?id=1jfBvRFiFqVSnU5ncd7GFDPZE4oeXJA4o">
-                    <img src="https://drive.google.com/uc?id=1HIsg1YFZkonnIXjue0EdrFj-geZRV9vu">
-                    <img src="https://drive.google.com/uc?id=1fSNqT3zDKGfQwDTq3PcTuMbM0q9ZM13G">
-                    <img src="https://drive.google.com/uc?id=1HwZ5jF1PyTpHZlvtQEdhEHCEnc6r1Rpt">
-                    <img src="https://drive.google.com/uc?id=1OsB_bs-aNVIXwGNPEzFmMiXW8O8mI4iI">
-                </div>
-                <!-- 하단 텍스트 & 사진 -->
-                <div class="contents2">
-                    <p class="title"><span>동물친구들,</span>&nbsp<span style="color: #2B3856;">요리, 친구들</span></p>
-                    <img style="width: 150px;" class="photos"
-                        src="https://drive.google.com/uc?id=1s1mnhOX6Sx6e_APmNh8FT3rYfSsd8Pbu">
-                    <img src="https://drive.google.com/uc?id=1NuQ-fd6MEV-T5JNNTo7toa6fZcWIyKgD">
-                    <img src="https://drive.google.com/uc?id=1HtFf-pLiWKXV8sy__ggoLvwOYqcnrsvA">
-                    <img src="https://drive.google.com/uc?id=1FvQWmTSOqoUfqB-WOc46eij_7482LxjV">
-                    <img src="https://drive.google.com/uc?id=1GeIa46f-F2S_j9K7nSlMjCwWqDr1u3D2">
-                    <img src="https://drive.google.com/uc?id=1FvQWmTSOqoUfqB-WOc46eij_7482LxjV">
-                    <img src="https://drive.google.com/uc?id=1SYIl34bkYrROr2mpSks-OBuGTSSS_txC">
-                    <img src="https://drive.google.com/uc?id=1PxC_VDkTZT0cHwOOaPg8bVM9K_F2DFnc">
-                </div>
-            </section>
-        </div>
 </body>
+
 </html>

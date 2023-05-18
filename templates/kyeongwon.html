@@ -15,45 +15,45 @@
 
     <link rel="stylesheet" type="text/css" href="static/style.css">
     <title>Profile</title>
-
+    <script src="static/js/main.js"></script>
     <script>
         $(document).ready(function () {
-            show_order();
+            show_comment();
         });
-        function show_order() {
-            let name = $('#name').text();
-            fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
-                let rows = data['result']
-                $('#order-box').empty()
-                rows.forEach((a) => {
-                    let id = a['id']
-                    let comment = a['comment']
+        // function show_comment() {
+        //     let name = $('#name').text();
+        //     fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
+        //         let rows = data['result']
+        //         $('#order-box').empty()
+        //         rows.forEach((a) => {
+        //             let id = a['id']
+        //             let comment = a['comment']
 
-                    let temp_html = `<tr>
-                                        <td>${id}</td>
-                                        <td>${comment}</td>
-                                    </tr>`
-                    $('#order-box').append(temp_html)
-                })
-            })
-        }
-        function save_order() {
-            let name = $('#name').text()
-            let id = $('#id').val()
-            let password = $('#password').val()
-            let comment = $('#comment').val()
+        //             let temp_html = `<tr>
+        //                                 <td>${id}</td>
+        //                                 <td>${comment}</td>
+        //                             </tr>`
+        //             $('#order-box').append(temp_html)
+        //         })
+        //     })
+        
+        // function save_order() {
+        //     let name = $('#name').text()
+        //     let id = $('#id').val()
+        //     let password = $('#password').val()
+        //     let comment = $('#comment').val()
 
-            let formData = new FormData();
-            formData.append("name_give", name);
-            formData.append("id_give", id);
-            formData.append("password_give", password);
-            formData.append("comment_give", comment);
+        //     let formData = new FormData();
+        //     formData.append("name_give", name);
+        //     formData.append("id_give", id);
+        //     formData.append("password_give", password);
+        //     formData.append("comment_give", comment);
 
-            fetch("/guestbook", { method: "POST", body: formData }).then(res => res.json()).then(data => {
-                alert(data["msg"])
-                window.location.reload()
-            })
-        }
+        //     fetch("/guestbook", { method: "POST", body: formData }).then(res => res.json()).then(data => {
+        //         alert(data["msg"])
+        //         window.location.reload()
+        //     })
+        // }
     </script>
 </head>
 
@@ -67,7 +67,7 @@
                             alt="로고"></a>
                 </h1>
                 <ul class="gnb">
-                    <li><a href="#">home</a></li> <!-- 홈버튼 링크달기 -->
+                    <li><a href="/">home</a></li> <!-- 홈버튼 링크달기 -->
                     <li><a href="https://velog.io/@canseeit">blog</li>
                     <li><a href="https://github.com/canseeit">github</a></li>
                 </ul>
@@ -111,7 +111,7 @@
             <input id="password" type="password" class="form-control" placeholder="PASSWARD">
         </div>
         <textarea id="comment" class="comment-control" placeholder="COMMENT"></textarea>
-        <button onclick="save_order()" type="button" class="btn btn-primary mybtn">확인</button>
+        <button onclick="save_comment()" type="button" class="btn btn-primary mybtn">확인</button>
     </div>
     <table class="table">
         <thead>
@@ -120,7 +120,7 @@
                 <th scope="col">comment</th>
             </tr>
         </thead>
-        <tbody id="order-box">
+        <tbody id="comment-list">
             <tr>
                 <td>닉네임</td>
                 <td>내용</td>

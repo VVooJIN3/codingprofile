@@ -140,6 +140,7 @@
       let pw = $('#password').val()
       let comment = $('#comment').val()
       let name = $('#name').text()
+      
       if (id == null || id == "") {
         alert("ID를 입력해주세요!")
         return false
@@ -341,7 +342,7 @@
         </div>
         <div style="display:inline-block; margin-left: 3%;">
           <p>추가적으로 작년부터 깊게 빠진 운동이 있는데</p>
-          <p>바로!! 크로스핏입니다 너무 중도 되어 버렸어요...</p>
+          <p>바로!! 크로스핏입니다 너무 중독 되어 버렸어요...</p>
           <p>이거 덕분에 살도 많이 빠지고 체력도 많이 올라와서</p>
           <p>정말 여러모로 도움 많이 되는 운동이구 </p>
           <p>추천하는 운동입니다!!</p>
@@ -350,16 +351,16 @@
 
       <div class="inputbox">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="id">ID</span>
-          <input id="idbox" type="text" class="form-control" placeholder="ID" aria-label="id"
+          <span class="input-group-text">ID</span>
+          <input id="id" type="text" class="form-control" placeholder="ID" aria-label="id"
             aria-describedby="basic-addon1">
           <span class="input-group-text" id="pw">PW</span>
-          <input id="pwbox" type="password" class="form-control" placeholder="Password" aria-label="pw"
+          <input id="password" type="password" class="form-control" placeholder="Password" aria-label="pw"
             aria-describedby="basic-addon1">
         </div>
         <div class="input-group mb-3">
-          <span class="input-group-text" id="comment">방명록</span>
-          <input id="combox" type="text" class="form-control" placeholder="자유롭게 글을 달아주세요." aria-label="comment"
+          <span class="input-group-text" id="combox">방명록</span>
+          <input id="comment" type="text" class="form-control" placeholder="자유롭게 글을 달아주세요." aria-label="comment"
             aria-describedby="basic-addon1">
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
