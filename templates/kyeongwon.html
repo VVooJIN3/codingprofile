@@ -13,97 +13,16 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-    <title>개인 프로필</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
-
-        * {
-            font-family: 'Sunflower', sans-serif;
-        }
-
-        #head {
-            display: grid;
-            grid-template-columns: 2fr 2fr;
-            grid-template-rows: 200px;
-        }
-
-        .host {
-            font-size: 50px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .home {
-            text-align: right;
-            margin: 5% 10%;
-        }
-
-        #grid {
-            font-size: 20px;
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            grid-template-rows: 330px;
-        }
-
-        .mytxt {
-            text-align: center;
-        }
-
-        .intro {
-            color: green;
-        }
-
-        .myimg {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-        }
-
-        .navbar {
-            margin: 20px 0px 20px 0px;
-            padding: 30px 0px 30px 0px;
-        }
-
-        .img {
-            width: 360px;
-            height: 270px;
-            margin: 0px 0px 30px 15px;
-        }
-
-        .img2 {
-            width: 270px;
-            height: 270px;
-            margin: 0px 0px 30px 15px;
-        }
-
-        .text {
-            margin: 0px 50px 0px 50px;
-            font-size: 20px;
-        }
-
-        .form-control {
-            width: 200px;
-            height: 30px;
-            margin: 5px 0px 0px 10px;
-        }
-
-        .comment-control {
-            width: 400px;
-            height: 100px;
-            margin: 3px 0px 0px 10px;
-        }
-
-        .mybtn {
-            margin-bottom: 30px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <title>Profile</title>
 
     <script>
         $(document).ready(function () {
             show_order();
         });
         function show_order() {
-            fetch('/guestbook').then((res) => res.json()).then((data) => {
+            let name = $('#name').text();
+            fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
                 let rows = data['result']
                 $('#order-box').empty()
                 rows.forEach((a) => {
@@ -119,7 +38,7 @@
             })
         }
         function save_order() {
-            let name = '이경원'     // 이름수정? url입력받기?
+            let name = $('#name').text()
             let id = $('#id').val()
             let password = $('#password').val()
             let comment = $('#comment').val()
@@ -139,33 +58,55 @@
 </head>
 
 <body>
-    <header id="head">
-        <span class="host">이경원</span>
-        <!-- 홈버튼 링크 수정 -->
-        <span class="home"><a href="메인페이지 URL"><button type="button"
-                    class="btn btn-outline-dark">Home</button></a></span>
-    </header>
+    <div id="wrap">
+        <header>
+            <div>
+                <h1 class="logo">
+                    <a href="#"><img
+                            src="data:image/png;base64,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"
+                            alt="로고"></a>
+                </h1>
+                <ul class="gnb">
+                    <li><a href="#">home</a></li> <!-- 홈버튼 링크달기 -->
+                    <li><a href="https://velog.io/@canseeit">blog</li>
+                    <li><a href="https://github.com/canseeit">github</a></li>
+                </ul>
+            </div>
+        </header>
+    </div>
     <div id="grid">
         <div class="mytxt">
-            <p><span class="intro">장점</span>: 내 생각과 다른 의견도 잘 수용함</p>
-            <p><span class="intro">좋아하는 것</span>: 음악듣기, 산책</p>
-            <p><span class="intro">협업 스타일</span>: 말 잘 듣기</p>
-            <p><span class="intro">목표</span>: 올해 취업하기</p>
+            <p><span class="intro">이름</span>: <span id="name">이경원</span></p>
+            <p><span class="intro">좋아하는 것</span>: 음악듣기, 산책, ...</p>
+            <p><span class="intro">장점</span>: 오히려좋아 마인드</p>
             <p><span class="intro">MBTI</span>: ENFP</p>
-            <p><span class="intro">우리집 고양이</span>: 도도</p>
-            <p>블로그 주소: &nbsp;<a href="https://velog.io/@canseeit/">https://velog.io/@canseeit</a></p>
+            <p><span class="intro">목표</span>: 올해 안에 취업하기</p>
+            <p><span class="intro">협업 스타일</span>: 말 잘 듣기</p>
+            <p><span class="intro">우리집 고양이</span>: 도도🐈‍⬛</p>
         </div>
-        <div>
-            <img src="https://drive.google.com/uc?id=13ISFnB9749e2WeLscfiAKp48ik7yDKhi" class="myimg">
+        <div class="myimg">
+            <img src="/static/image/image1.jpg">
         </div>
     </div>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">GUEST BOOK</span>
+    <div class="escape">
+        <img src="/static/image/escape.jpg">
+        <div>
+            <p>방탈출을 좋아해요</p>
+            <p>전주에 있는 방탈출 전부 다 깨서 못하고 있어요</p>
         </div>
-    </nav>
+    </div>
+    <div class="concert">
+        <img src="/static/image/concert_iu.jpg">
+        <img src="/static/image/concert_wsg.jpg">
+        <img src="/static/image/concert_phs.jpg">
+        <div>
+            <p>콘서트 보러 다니는 것을 아주 좋아해요</p>
+            <p>코로나로 한참 못가다가 작년에 3번 다녀왔어요</p>
+            <p>캠프 개강날 시간 가는 줄 모르고 있다가 태연 콘서트 예매 잊어버림</p>
+        </div>
+    </div>
     <div class="guestbook">
-        <div class="user-input">
+        <div>
             <input id="id" type="text" class="form-control" placeholder="ID">
             <input id="password" type="password" class="form-control" placeholder="PASSWARD">
         </div>
@@ -175,30 +116,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col" style="width:300px">ID</th>
                 <th scope="col">comment</th>
             </tr>
         </thead>
         <tbody id="order-box">
             <tr>
-                <td>테스트</td>
-                <td>테스트</td>
+                <td>닉네임</td>
+                <td>내용</td>
             </tr>
         </tbody>
     </table>
-    <nav class="navbar navbar-light bg-light"></nav>
-    <div>
-        <img src="https://drive.google.com/uc?id=1hk09k5abASeaVJTdhjniGhcfLDc64w10" class="img">
-        <img src="https://drive.google.com/uc?id=1V_kE5I1vnHNh0E7NgM7Os7Xtiee_bItv" class="img">
-        <img src="https://drive.google.com/uc?id=1n9UHoWH0MHN5zX1Wlzop604dQmQ0xni2" class="img">
-        <img src="https://drive.google.com/uc?id=1IoPvY4VbyF-49hWsh9PZh_KBEu9d07GB" class="img2">
-    </div>
-    <div class="text">
-        <p>콘서트 보러 다니는 것을 아주 좋아합니다.</p>
-        <p>코로나로 한참 못가다가 작년에 3번 다녀왔어요</p>
-        <p>캠프 개강날 시간 가는 줄 모르고 있다가 태연 콘서트 예매 잊어버림...</p>
-        <p>아직 못갔지만 올해에도 반드시 간다..</p>
-    </div>
 </body>
 
 </html>
