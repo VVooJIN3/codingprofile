@@ -11,6 +11,7 @@
 
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime,timedelta
+from datetime import datetime,timedelta
 app = Flask(__name__)
 from pymongo import MongoClient
 import certifi
@@ -29,6 +30,8 @@ client = MongoClient('mongodb+srv://sparta:test@cluster0.89nsamy.mongodb.net/?re
 
 db = client.dbsparta
 
+import requests
+from bs4 import BeautifulSoup
 
 #페이지 이동하기
 @app.route('/')
@@ -262,46 +265,39 @@ def guestbook_get():
 
 # @app.route("/check", methods=["POST"])
 # def check_post():
+
 #     pw_receive = request.form["pw_give"]
 #     num_receive = request.form["num_give"]
+
 #     print("전달 받은 패스워드 : "+ pw_receive+ "디비 넘버"+ int(num_receive))
+
 #     a = list(db.guestbook.find({'pw':pw_receive, 'num':int(num_receive)},{'_id':False}))
 #     b = list(db.guestbook.find({'num':int(num_receive)},{'_id':False}))
+
 #     for i in a:
 #         print(i)
+
+
 #     logging.warn("")
+
+
 #     for i in b:
 #         print(i)
 
+
+    
+
+    
+    
 #     # db.guestbook.delete_one({'num': int(delete_receive)})
 #     return jsonify({'msg':'본인 확인 완료!'})
 
 
-#############################################
-#최신혜 : 페이지이동
-# @app.route('/choi')
-# def home():
-#    return render_template('index.html')
-# @app.route("/guestbook", methods=["POST"])
-# def guestbook_post():
-#     name_receive = request.form['name_give']
-#     id_receive = request.form['id_give']
-#     comment_receive = request.form['comment_give']
-#     doc = {
-#         'name':name_receive,
-#         'id':id_receive,
-#         'comment':comment_receive
-#     }
-#     db.guestbook.insert_one(doc)
-#     return jsonify({'msg': '저장 완료!'})
 
 # @app.route("/guestbook", methods=["GET"])
 # def guestbook_get():
-#     all_comments = list(db.guestbook.find({},{'_id':False}))
-#     return jsonify({'result': all_comments})
-
-
+#     guestbook = list(db.guestbook.find({},{'_id':False}))
+#     return jsonify({'result':guestbook})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
-

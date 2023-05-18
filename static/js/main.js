@@ -117,36 +117,22 @@ function show_comment() {
                     console.log(id, pw, comment, num)
                     if ($('#name').text() == a['name']) {
                         let temp_html = `<div class="card">
-                                              <div class="card-body">
+                                            <div class="card-body">
                                                 <blockquote class="blockquote mb-0">
-                                                  <p id="editcomment-${commentIdx}">${comment}</p>
-                                                  <footer class="blockquote-footer" id="editid-${commentIdx}">${id}</footer>
+                                                <p>${comment}</p>
+                                                <footer class="blockquote-footer">${id}</footer>
                                                 </blockquote>
                                                 <div class="d-flex justify-content-end">
-                                                  <button onclick="editbutton_clicked(this)" type="button" class="btn btn-outline-secondary" value="${commentIdx}" data-id="${objectId}"   >수정</button>
-                                                  <button onclick="editbutton_clicked(this)" type="button" class="btn btn-outline-secondary" style="display:none;"value="${commentIdx}" data-id="${objectId}"  >완료</button>
-                                                  <button onclick="deletebutton_clicked(this))" type="button" class="btn btn-outline-secondary"value="${commentIdx}" data-id="${objectId}" >삭제</button>
+                                                <button onclick="editbutton_clicked(this)" type="button" class="btn btn-outline-secondary" value="${commentIdx}" data-id="${objectId}"   >수정</button>
+                                                <button onclick="editbutton_clicked(this)" type="button" class="btn btn-outline-secondary" style="display:none;"value="${commentIdx}" data-id="${objectId}"  >완료</button>
+                                                <button onclick="deletebutton_clicked(this))" type="button" class="btn btn-outline-secondary"value="${commentIdx}" data-id="${objectId}" >삭제</button>
                                                 </div>
-                                                <div class="modal" tabindex="-1" id ="chkbox">
-                                                  <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                      <div class="modal-header">
-                                                        <h5 class="modal-title">비밀번호 확인</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                      </div>
-                                                      <div class="modal-body">
-                                                        <input id="chkidbox" type="text" class="form-control" placeholder="pw" aria-label="id"
-                  aria-describedby="basic-addon1">
-                                                      </div>
-                                                      <div class="modal-footer">
-                                                        <button onclick="close_box()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                                        <button onclick="send_data(${num})" type="button" class="btn btn-primary">확인</button>
-                                                      </div>
-                                                    </div>
-                                                  </div>
+                                                <div class="input-group flex-nowrap">
+                                                <span class="input-group-text" id="addon-wrapping">PW</span>
+                                                <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
                                                 </div>
-                                              </div>
-                                            </div>`
+                                            </div>
+                                        </div>`
                         $('#comment-list').append(temp_html)
                     }
 

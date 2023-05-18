@@ -1,8 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8     Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -13,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
-
         * {
             font-family: 'Nanum Myeongjo', serif;
             margin: 0;
@@ -232,6 +234,7 @@
 
     </script>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -260,7 +263,7 @@
                 <div class="card h-100">
                     <img src="https://drive.google.com/uc?id=1hhA9Sz4K2zfvib8ExF_esCa_yIFANF-s" class="card-img-top">
                     <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                        <button class="memberb">최신혜 > </button>
+                        <button onclick="move1()" class="memberb">최신혜 > </button>
                     </div>
                 </div>
             </div>
@@ -268,7 +271,7 @@
                 <div class="card h-100">
                     <img src="https://drive.google.com/uc?id=1pnOSUh7HyXBruu9Y_WiDOa8kAxVCiIIk" class="card-img-top">
                     <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                        <button class="memberb">조우진 > </button>
+                        <button onclick="move2()" class="memberb">조우진 > </button>
                     </div>
                 </div>
             </div>
@@ -276,7 +279,7 @@
                 <div class="card h-100">
                     <img src="https://drive.google.com/uc?id=1IyAcV43m3mhT3wvKpkwoWmGXyOgsFbir" class="card-img-top">
                     <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                        <button class="memberb">박행복 > </button>
+                        <button onclick="nextPage()" class="memberb">박행복 > </button>
                     </div>
                 </div>
             </div>
@@ -284,7 +287,7 @@
                 <div class="card h-100">
                     <img src="https://drive.google.com/uc?id=1JqQDak4NLdEKDSVAPUS7xAUhNjFpunpx" class="card-img-top">
                     <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                        <button class="memberb">이경원 > </button>
+                        <button onclick="move4()" class="memberb">이경원 > </button>
                     </div>
                 </div>
             </div>
@@ -292,7 +295,7 @@
                 <div class="card h-100">
                     <img src="https://drive.google.com/uc?id=1HVNodYV9lDow6omdODv-6D57l1w3-5Ai" class="card-img-top">
                     <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                        <button class="memberb">박수빈 > </button>
+                        <button onclick="move3()" class="memberb">박수빈 > </button>
                     </div>
                 </div>
             </div>
@@ -327,4 +330,5 @@
 
 
 </body>
+
 </html>
