@@ -102,12 +102,9 @@ function show_comment() {
             break;
 
         case '박행복':
-            console.log("박행복 함수 접근완료")
             fetch('/guestbook?name=' + name).then((res) => res.json()).then((data) => {
                 let rows = data['result']
-
                 $('#comment-list').empty()
-
                 let commentIdx=1;
                 rows.forEach(a => {
 
