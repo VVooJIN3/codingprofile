@@ -1,0 +1,184 @@
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("/static/image/main.png");
+
+    background-position: center;
+    background-size: cover;
+
+}
+
+/* .carousel-inner img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
+/* .carousel-item {
+    height: 100vh;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+} */
+
+.carousel-inner {
+    background-color: black;
+}
+
+.carousel-item{
+    opacity: 0.2;
+}
+
+.container .header {
+    width: 80%;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    /* 영역 좌우로 */
+    align-items: center;
+}
+
+.container .header h1 a {
+    text-decoration: none;
+    color: white;
+}
+
+.container .nav ul li {
+    display: inline-block;
+    /* 가로정렬 */
+    margin: 0 10px;
+    color: white;
+}
+
+.container .nav ul li:hover {
+    color: #1fdfdf
+}
+
+/* .container .nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.container .nav ul li a:hover {
+    color: #1fdfdf
+} */
+
+.container .hero {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+
+}
+
+
+.container .hero h2 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.container .hero p {
+    font-size: 22px;
+}
+
+.container .hero button {
+    background: none;
+    border: 2px solid darkseagreen;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 30px;
+    margin-top: 30px;
+    outline: none;
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.container .hero button:hover {
+    background-color: darkslategray;
+}
+
+.view#scrollButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+}
+
+
+.mycards {
+    margin: 20px auto 0px auto;
+    width: 95%;
+    /* max-width: 1200px; */
+    height: 2000px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    /* Adjust the height as needed */
+    object-fit: cover;
+}
+
+.card-body {
+    height: 100%;
+}
+
+
+
+.memberb {
+    background: none;
+    border: 1px solid black;
+    color: black;
+    padding: 10px 30px;
+    border-radius: 20px;
+    margin-top: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: all .4s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+}
+
+.memberb:hover {
+    border: 1px solid white;
+}
+
+.mypost {
+    width: 95%;
+    max-width: 500px;
+    margin: 20px auto 0px auto;
+    padding: 20px;
+    box-shadow: 0px 0px 3px 0px gray;
+
+    display: none;
+}
+
+/* 탑버튼 스타일 */
+#btn_top {
+    position: fixed;
+    right: 10px;
+    bottom: 40px;
+    z-index: 999;
+    opacity: 0.5;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+}
+
+#btn_top:hover {
+    background-color: black;
+    transition: 0.3s;
+    transform: scale(1.1);
+}
