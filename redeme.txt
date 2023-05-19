@@ -1,0 +1,2 @@
+http://myweb.eba-vbmmptwt.ap-northeast-2.elasticbeanstalk.com/
+배포 해봤습니다
